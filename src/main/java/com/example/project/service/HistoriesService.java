@@ -2,6 +2,7 @@ package com.example.project.service;
 
 import com.example.project.model.Histories;
 import com.example.project.repository.HistoriesRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,13 @@ public class HistoriesService {
     @Transactional(readOnly = true)
     public Histories getHistoriesById(Long id) {
         return historiesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Historie mit nicht gefunden"));
+                .orElseThrow(() -> new EntityNotFoundException("Historie mit nicht gefunden"));
     }
 
     @Transactional
     public void deleteHistorie(Long id){
         if(!historiesRepository.existsById(id))
-            throw new IllegalArgumentException("Historie mit ID " + id + " nicht gefunden");
+            throw new EntityNotFoundException("Historie mit ID " + id + " nicht gefunden");
         log.info("Historie gelöscht mit ID : {}", id);
         historiesRepository.deleteById(id);
     }
