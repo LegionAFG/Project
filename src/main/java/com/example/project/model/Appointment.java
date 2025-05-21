@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "appointment")
+@Table(name = "appointments")
 public class Appointment {
 
     //TODO: ManyToOne with Client
