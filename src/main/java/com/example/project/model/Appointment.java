@@ -15,8 +15,9 @@ import java.time.LocalTime;
 @Table(name = "appointments")
 public class Appointment {
 
-    //TODO: ManyToOne with Client
-    //TODO: JoinColumn with client_id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

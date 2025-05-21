@@ -28,7 +28,7 @@ public class HistoriesService {
     }
 
     @Transactional
-    public void deleteHistorie(Long id){
+    public void deleteHistories(Long id){
         if(!historiesRepository.existsById(id))
             throw new EntityNotFoundException("Historie mit ID " + id + " nicht gefunden");
         log.info("Historie gelöscht mit ID : {}", id);

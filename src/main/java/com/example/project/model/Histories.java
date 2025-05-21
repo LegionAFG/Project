@@ -14,8 +14,9 @@ import java.time.LocalDate;
 @Table(name = "histories")
 public class Histories {
 
-    //TODO: ManyToOne with Client
-    //TODO: JoinColumn with client_id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
