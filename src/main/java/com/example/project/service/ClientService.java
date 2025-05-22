@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,11 @@ public class ClientService {
     public Client getClientById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Klient nicht gefunden"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
     }
 
     @Transactional

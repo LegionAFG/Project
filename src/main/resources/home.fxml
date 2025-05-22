@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controller.HomeController">
+    <left>
+        <AnchorPane prefHeight="530.0" prefWidth="168.0" style="-fx-background-color: #3b5998;" BorderPane.alignment="CENTER">
+            <VBox layoutX="14.0" layoutY="238.0" prefHeight="84.0" prefWidth="140.0">
+                <Button fx:id="clientButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #8b9dc3;" text="Klient" textFill="#f7f7f7">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Button>
+                <TextField prefHeight="30.0" prefWidth="140.0" promptText="SUCHE...">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </TextField>
+            </VBox>
+            <Text fill="#f3f3f5" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLIENT PILOT" textAlignment="CENTER" wrappingWidth="168.583984375">
+                <font>
+                    <Font name="System Bold" size="30.0" />
+                </font>
+            </Text>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dfe3ee;" BorderPane.alignment="CENTER">
+            <Text fill="#3b5998" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offene Termine">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Text>
+            <TableView fx:id="appointmentTable" layoutX="14.0" layoutY="29.0" prefHeight="248.0" prefWidth="608.0">
+                <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="75.0" text="CLIENT ID">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="date" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="lastColumn" prefWidth="75.0" text="Nachname">
+                    </TableColumn>
+                    <TableColumn fx:id="firstColumn" prefWidth="75.0" text="Vorname">
+                    </TableColumn>
+                    <TableColumn fx:id="institutionColumn" prefWidth="156.8" text="Institution">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="institution" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="dateColumn" prefWidth="73.6" text="Datum">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="date" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="timeColumn" prefWidth="68.0" text="Uhrzeit">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="time" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="statusColumn" prefWidth="77.6" text="Status">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="status" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <Text fill="#3b5998" layoutX="14.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alle Klienten">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Text>
+
+            <TableView fx:id="clientTable" layoutX="14.0" layoutY="300.0" prefHeight="290.0" prefWidth="608.0">
+                <columns>
+                    <TableColumn fx:id="clientIdColumn" prefWidth="75.0" text="CLIENT ID">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="id" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientLastColumn" prefWidth="75.0" text="Nachname">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="lastname" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientFirstColumn" prefWidth="75.0" text="Vorname">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="firstname" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientBirthdateColumn" prefWidth="95.0" text="Geburtsdatum">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="birthdate" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientGenderColumn" prefWidth="83.0" text="Geschlecht">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="gender" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientNationalityColumn" prefWidth="99.0" text="Nationalität">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="nationality" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientRelationshipColumn" prefWidth="102.0" text="Beziehungsstatus">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="relationship" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+
+        </AnchorPane>
+    </center>
+</BorderPane>

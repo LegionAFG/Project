@@ -24,7 +24,7 @@ public class Appointment {
     private Long id;
     private LocalDate date;
     private LocalTime time;
-    private String title;
+    private String institution;
     private String city;
     private String street;
     private int postalCode;

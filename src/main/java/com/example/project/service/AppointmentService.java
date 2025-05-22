@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,11 @@ public class AppointmentService {
     public Appointment getAppointmentById(Long id) {
         return appointmentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Termin mit nicht gefunden"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Appointment> getAllAppointmentsWithClient() {
+        return appointmentRepository.findAllWithClient();
     }
 
     @Transactional
