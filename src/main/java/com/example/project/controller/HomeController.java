@@ -1,5 +1,7 @@
 package com.example.project.controller;
 
+import com.example.project.help.NaviButtonHelper;
+import com.example.project.help.ViewUrls;
 import com.example.project.model.Appointment;
 import com.example.project.model.Client;
 import com.example.project.service.AppointmentService;
@@ -7,9 +9,12 @@ import com.example.project.service.ClientService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +27,7 @@ public class HomeController {
 
     private final ClientService clientService;
     private final AppointmentService appointmentService;
+    private final NaviButtonHelper naviButtonHelper;
 
     @FXML
     private TableView<Appointment> appointmentTable;
@@ -57,6 +63,9 @@ public class HomeController {
     @FXML
     private TableColumn<Client, String> clientRelationshipColumn;
 
+    @FXML
+    private Button clientButton;
+
     public void initialize() {
 
         idColumn.setCellValueFactory(cellData ->
@@ -75,7 +84,11 @@ public class HomeController {
 
     }
 
-    //TODO Client BUTTON implementieren
+    public void clientButton() throws Exception {
+        Stage stage = (Stage) clientButton.getScene().getWindow();
+        String url = ViewUrls.CLIENT_URL;
+        naviButtonHelper.navigateTo(stage,url);
+    }
 
     //TODO Search FIELD implementieren
 
