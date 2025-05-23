@@ -17,7 +17,7 @@
     <left>
         <AnchorPane prefHeight="530.0" prefWidth="168.0" style="-fx-background-color: #3b5998;" BorderPane.alignment="CENTER">
             <VBox alignment="CENTER" layoutX="9.0" layoutY="13.0" prefHeight="546.0" prefWidth="150.0">
-                <TextField fx:id="idField" prefHeight="144.0" prefWidth="150.0" promptText="ClientID...">
+                <TextField fx:id="clientIdField" prefHeight="144.0" prefWidth="150.0" promptText="ClientID...">
                     <font>
                         <Font size="15.0" />
                     </font></TextField>
@@ -29,7 +29,7 @@
                         <Font size="15.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="firstnameField" prefHeight="144.0" prefWidth="150.0" promptText="Firstname...">
+                <TextField fx:id="firstNameField" prefHeight="144.0" prefWidth="150.0" promptText="Firstname...">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
@@ -37,22 +37,22 @@
                         <Font size="15.0" />
                     </font>
                 </TextField>
-                <DatePicker fx:id="birthdatePicker" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
+                <DatePicker fx:id="birthDatePicker" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </DatePicker>
-                <ChoiceBox fx:id="genderChoice" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
+                <ChoiceBox fx:id="genderChoiceBox" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </ChoiceBox>
-                <ChoiceBox fx:id="nationalityChoice" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
+                <ChoiceBox fx:id="nationalityChoiceBox" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </ChoiceBox>
-                <ChoiceBox fx:id="relationshipChoice" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
+                <ChoiceBox fx:id="relationshipChoiceBox" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>

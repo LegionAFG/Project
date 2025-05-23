@@ -12,14 +12,17 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class HomeController {
@@ -27,6 +30,7 @@ public class HomeController {
     private final ClientService clientService;
     private final AppointmentService appointmentService;
     private final NaviButtonHelper naviButtonHelper;
+    Client client;
 
     @FXML
     private TableView<Appointment> appointmentTable;
@@ -77,18 +81,38 @@ public class HomeController {
                 new ReadOnlyStringWrapper(cellData.getValue().getClient().getLastname())
         );
 
-       appointmentTable.setItems(FXCollections.observableArrayList(appointmentService.getAllAppointmentsWithClient()));
+        appointmentTable.setItems(FXCollections.observableArrayList(appointmentService.getAllAppointmentsWithClient()));
 
         clientTable.setItems(FXCollections.observableArrayList(clientService.getAllClients()));
+
+        //TODO doppelklick auf table view zu termin anzeigen
+
+        clientTable.setRowFactory(tv ->{
+            TableRow<Client> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty())) {
+
+                    Stage current = (Stage) clientTable.getScene().getWindow();
+
+                    try {
+                        naviButtonHelper.navigateToClient(current, row.getItem());
+                    } catch (Exception e) {
+                        log.error("Fehler beim Navigieren zum Client: {}", client.getId(), e);
+                    }
+                }
+            });
+            return row;
+        });
+
+        //TODO doppelklick auf table view zu client anzeigen
 
     }
 
     public void clientButton() throws Exception {
         Stage stage = (Stage) clientButton.getScene().getWindow();
         String url = ViewUrls.CLIENT_URL;
-        naviButtonHelper.navigateTo(stage,url);
+        naviButtonHelper.navigateTo(stage, url);
     }
 
     //TODO Search FIELD implementieren
-
 }
