@@ -2,8 +2,10 @@ package com.example.project.help;
 
 import com.example.project.controller.AppointmentController;
 import com.example.project.controller.ClientController;
+import com.example.project.controller.HistoriesController;
 import com.example.project.model.Appointment;
 import com.example.project.model.Client;
+import com.example.project.model.Histories;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -43,10 +45,10 @@ public class NaviButtonHelper {
                ((AppointmentController) controller).setAppointment((Appointment) model);
                log.debug("Appointment-Modell an AppointmentController übergeben: {}", ((Appointment) model).getId());
             }
-            // TODO: Hier weitere Controller-Typen und ihre Modelle hinzufügen, HistoriesController
-            // else if (controller instanceof HistoriesController && model instanceof HistoryEntry) {
-            // ((HistoriesController) controller).setHistory((HistoryEntry) model);
-            // }
+             else if (controller instanceof HistoriesController && model instanceof Histories) {
+            ((HistoriesController) controller).setHistories((Histories) model);
+
+             }
             else if (controller != null) {
                 log.warn("Modell vom Typ {} konnte nicht an Controller {} übergeben werden. Kein passender Setter implementiert/erkannt.",
                         model.getClass().getSimpleName(), controller.getClass().getSimpleName());

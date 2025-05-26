@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -23,5 +24,6 @@ public class Histories {
     private Long id;
     private String title;
     private String description;
+    private LocalTime time;
     private LocalDate date;
 }
