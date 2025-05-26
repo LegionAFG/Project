@@ -22,13 +22,9 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class NaviButtonHelper {
+public class NaviRowHelper {
 
     private final ConfigurableApplicationContext springContext;
-
-    public void fxmlLoader(Stage stage, String fxmlUrl) throws IOException {
-        fxmlLoader(stage, fxmlUrl, null);
-    }
 
     public void fxmlLoader(Stage stage, String fxmlUrl, Object model) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlUrl));
@@ -42,13 +38,13 @@ public class NaviButtonHelper {
                 ((ClientController) controller).setClient((Client) model);
                 log.debug("Client-Modell an ClientController übergeben: {}", ((Client) model).getId());
             } else if (controller instanceof AppointmentController && model instanceof Appointment) {
-               ((AppointmentController) controller).setAppointment((Appointment) model);
-               log.debug("Appointment-Modell an AppointmentController übergeben: {}", ((Appointment) model).getId());
+                ((AppointmentController) controller).setAppointment((Appointment) model);
+                log.debug("Appointment-Modell an AppointmentController übergeben: {}", ((Appointment) model).getId());
             }
-             else if (controller instanceof HistoriesController && model instanceof Histories) {
-            ((HistoriesController) controller).setHistories((Histories) model);
+            else if (controller instanceof HistoriesController && model instanceof Histories) {
+                ((HistoriesController) controller).setHistories((Histories) model);
 
-             }
+            }
             else if (controller != null) {
                 log.warn("Modell vom Typ {} konnte nicht an Controller {} übergeben werden. Kein passender Setter implementiert/erkannt.",
                         model.getClass().getSimpleName(), controller.getClass().getSimpleName());
@@ -106,9 +102,7 @@ public class NaviButtonHelper {
         });
     }
 
-    public void navigateTo(Stage stage, String fxmlUrl) throws IOException {
-        fxmlLoader(stage, fxmlUrl);
-    }
+
 
     public void navigateToClient(Stage stage, Client client) throws IOException {
 
@@ -119,4 +113,12 @@ public class NaviButtonHelper {
 
         fxmlLoader(stage, ViewUrls.APPOINTMENT_URL, appointment);
     }
+
+    public void navigateToHistories(Stage stage, Histories histories) throws IOException {
+        fxmlLoader(stage, ViewUrls.HISTORIES_URL, histories);
+    }
+
+
+
+
 }

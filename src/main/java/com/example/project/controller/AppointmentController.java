@@ -1,23 +1,26 @@
 package com.example.project.controller;
 
-import com.example.project.help.NaviButtonHelper;
+import com.example.project.help.NaviHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Appointment;
+import com.example.project.model.Client;
+import com.example.project.service.AppointmentService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class AppointmentController {
 
-    private final NaviButtonHelper naviButtonHelper;
+    private final NaviHelper naviButtonHelper;
+    private final AppointmentService appointmentService;
 
+    Client client;
     Appointment appointment;
 
     @FXML
@@ -39,15 +42,30 @@ public class AppointmentController {
     @FXML
     private ChoiceBox<String> statusChoiceBox;
 
-    //TODO TableView Appointment implementieren
-    //TODO TableColumn Appointment implementieren
+    @FXML
+    private TableView<Appointment> appointmentsTable;
+    @FXML
+    private TableColumn<Appointment, String> institutionColumn;
+    @FXML
+    private TableColumn<Appointment, String> statusColumn;
+    @FXML
+    private TableColumn<Appointment, String> dateColumn;
+    @FXML
+    private TableColumn<Appointment, String> timeColumn;
+    @FXML
+    private TableColumn<Appointment, Long> postCodeColumn;
+    @FXML
+    private TableColumn<Appointment, String> cityColumn;
+    @FXML
+    private TableColumn<Appointment, String> streetColumn;
+
 
     public void initialize() {
 
         appointmentIdField.setEditable(false);
         datePickerField.setEditable(false);
 
-        statusChoiceBox.getItems().addAll("Offen","Erledigt");
+        statusChoiceBox.getItems().addAll("Offen", "Erledigt");
 
         statusChoiceBox.setValue("Bitte auswählen");
 
@@ -66,7 +84,12 @@ public class AppointmentController {
         naviButtonHelper.navigateTo(stage, url);
     }
 
-    public void setAppointment(Appointment appointment){
+    public void setClient(Client client) {
+        this.client = client;
+        loadAppointments();
+    }
+
+    public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
 
         appointmentIdField.setText(appointment.getClient().getId().toString());
@@ -77,6 +100,13 @@ public class AppointmentController {
         timeField.setText(appointment.getTime().toString());
         datePickerField.setValue(appointment.getDate());
         statusChoiceBox.setValue(appointment.getStatus());
+    }
+
+    private void loadAppointments() {
+        if (client != null) {
+            List<Appointment> appointmentList = appointmentService.getAppointmentsByClient(client);
+            appointmentsTable.getItems().setAll(appointmentList);
+        }
     }
 
     //TODO Delete Button implementieren

@@ -73,7 +73,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="btnNewAppointment" mnemonicParsing="false" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="APPOINTMENT" textFill="#f7f7f7">
+                <Button fx:id="appointmentButton" mnemonicParsing="false" onAction="#handleAppointmentButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="APPOINTMENT" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -81,7 +81,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="btnNewHistory" mnemonicParsing="false" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="HISTORIES" textFill="#f7f7f7">
+                <Button fx:id="historiesButton" mnemonicParsing="false" onAction="#handleHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="HISTORIES" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -99,11 +99,11 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dfe3ee;" BorderPane.alignment="CENTER">
-            <TableView fx:id="historiesTableView" layoutX="14.0" layoutY="29.0" prefHeight="248.0" prefWidth="611.0">
+            <TableView fx:id="historiesTable" layoutX="14.0" layoutY="29.0" prefHeight="248.0" prefWidth="611.0">
                 <columns>
-                    <TableColumn fx:id="historiesDateColumn" prefWidth="75.0" text="Date" />
-                    <TableColumn fx:id="historiesTimeColumn" prefWidth="75.0" text="Time" />
-                    <TableColumn fx:id="historiesTitleColumn" prefWidth="457.0" text="Titel" />
+                    <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+                    <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time" />
+                    <TableColumn fx:id="titleColumn" prefWidth="457.0" text="Titel" />
                 </columns>
             </TableView>
             <TableView fx:id="appointmentTableView" layoutX="14.0" layoutY="300.0" prefHeight="290.0" prefWidth="608.0">

@@ -1,23 +1,27 @@
 package com.example.project.controller;
 
-import com.example.project.help.NaviButtonHelper;
+import com.example.project.help.NaviHelper;
 import com.example.project.help.ViewUrls;
+import com.example.project.model.Client;
 import com.example.project.model.Histories;
+import com.example.project.service.HistoriesService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class HistoriesController {
 
-    private final NaviButtonHelper naviButtonHelper;
+    private final NaviHelper naviButtonHelper;
+    private final HistoriesService historiesService;
 
     Histories histories;
+    Client client;
 
     @FXML
     private Button homeButton;
@@ -29,9 +33,18 @@ public class HistoriesController {
     private TextField timeField;
     @FXML
     private DatePicker datePickerField;
+    @FXML
+    private TextArea historiesDescription;
 
-    //TODO TableView Appointment implementieren
-    //TODO TableColumn Appointment implementieren
+    @FXML
+    private TableView<Histories> historiesTable;
+    @FXML
+    private TableColumn<Histories, String> titleColumn;
+    @FXML
+    private TableColumn<Histories, String> timeColumn;
+    @FXML
+    private TableColumn<Histories, String> dateColumn;
+
 
 
     @FXML
@@ -55,12 +68,25 @@ public class HistoriesController {
         naviButtonHelper.navigateTo(stage, url);
     }
 
+    public void setClient(Client client){
+        this.client = client;
+        loadHistories();
+    }
+
     public void setHistories(Histories histories){
         this.histories = histories;
+        loadHistories();
 
         historieIdField.setText(histories.getClient().getId().toString());
         timeField.setText(String.valueOf(histories.getTime()));
         titleField.setText(histories.getTitle());
+    }
+
+    private void loadHistories() {
+        if (client != null) {
+            List<Histories> historiesList = historiesService.getHistoriesByClient(client);
+            historiesTable.getItems().setAll(historiesList);
+        }
     }
 
     //TODO Delete Button implementieren

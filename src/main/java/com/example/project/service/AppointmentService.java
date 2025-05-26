@@ -1,6 +1,7 @@
 package com.example.project.service;
 
 import com.example.project.model.Appointment;
+import com.example.project.model.Client;
 import com.example.project.repository.AppointmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,13 @@ public class AppointmentService {
     }
 
     @Transactional(readOnly = true)
-    public List<Appointment> getAllAppointmentsWithClient() {
-        return appointmentRepository.findAllWithClient();
+    public List<Appointment> getAllOpenAppointments() {
+        return appointmentRepository.findAllByStatusWithClient("Offen");
+    }
+
+    @Transactional(readOnly = true)
+    public List<Appointment> getAppointmentsByClient(Client client) {
+        return appointmentRepository.findByClientId(client.getId());
     }
 
     @Transactional

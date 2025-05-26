@@ -1,6 +1,6 @@
 package com.example.project;
 
-import com.example.project.help.NaviButtonHelper;
+import com.example.project.help.NaviHelper;
 import com.example.project.help.ViewUrls;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -14,7 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class Run extends Application {
 
     private ConfigurableApplicationContext springContext;
-    private NaviButtonHelper naviButtonHelper;
+    private NaviHelper naviButtonHelper;
 
     public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class Run extends Application {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        naviButtonHelper = springContext.getBean(NaviButtonHelper.class);
+        naviButtonHelper = springContext.getBean(NaviHelper.class);
     }
 
     @Override

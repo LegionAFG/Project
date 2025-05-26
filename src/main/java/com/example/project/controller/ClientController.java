@@ -1,6 +1,6 @@
 package com.example.project.controller;
 
-import com.example.project.help.NaviButtonHelper;
+import com.example.project.help.NaviHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Client;
 import javafx.fxml.FXML;
@@ -19,12 +19,16 @@ import java.io.IOException;
 public class ClientController {
 
 
-    private final NaviButtonHelper naviButtonHelper;
+    private final NaviHelper naviButtonHelper;
 
     Client client;
 
     @FXML
     private Button homeButton;
+    @FXML
+    private Button historiesButton;
+    @FXML
+    private Button appointmentButton;
     @FXML
     private TextField clientIdField;
     @FXML
@@ -75,8 +79,38 @@ public class ClientController {
     }
 
     //TODO Appointment Button implementieren
+    @FXML
+    public void handleAppointmentButtonClick() throws IOException {
+        Stage stage = (Stage) appointmentButton.getScene().getWindow();
+
+
+        if (client != null) {
+            naviButtonHelper.navigateToAppointmentButton(stage, client);
+        } else {
+            showAlert();
+        }
+    }
 
     //TODO Historie Button implementieren
+    @FXML
+    public void handleHistoriesButtonClick() throws IOException {
+        Stage stage = (Stage) historiesButton.getScene().getWindow();
+
+
+        if (client != null) {
+            naviButtonHelper.navigateToHistoriesButton(stage, client);
+        } else {
+            showAlert();
+        }
+    }
+
+    private void showAlert() {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText("Kein Client ausgewählt.");
+        alert.showAndWait();
+    }
 
     //TODO Delete Button implementieren
 

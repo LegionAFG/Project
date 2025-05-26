@@ -84,19 +84,19 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dfe3ee;" BorderPane.alignment="CENTER">
-            <TableView fx:id="historiesTableView" layoutX="5.0" layoutY="29.0" prefHeight="213.0" prefWidth="622.0">
+            <TableView fx:id="historiesTable" layoutX="5.0" layoutY="29.0" prefHeight="213.0" prefWidth="622.0">
                 <columns>
-                    <TableColumn fx:id="historiesDateColumn" prefWidth="75.0" text="Date">
+                    <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date">
                         <cellValueFactory>
                             <PropertyValueFactory property="date" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="historiesTimeColumn" prefWidth="75.0" text="Time">
+                    <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time">
                         <cellValueFactory>
                             <PropertyValueFactory property="time" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="historiesTitleColumn" prefWidth="466.4" text="Titel">
+                    <TableColumn fx:id="titleColumn" prefWidth="466.4" text="Titel">
                         <cellValueFactory>
                             <PropertyValueFactory property="title" />
                         </cellValueFactory>
