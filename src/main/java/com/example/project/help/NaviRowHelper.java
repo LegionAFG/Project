@@ -102,6 +102,29 @@ public class NaviRowHelper {
         });
     }
 
+    public void rowNavigateToHistories(TableView<Histories> tableView) {
+        tableView.setRowFactory(tv -> {
+            TableRow<Histories> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Histories selectedHistories = row.getItem();
+                    Stage currentStage = (Stage) tableView.getScene().getWindow();
+
+                    try {
+                        this.navigateToHistories(currentStage, selectedHistories);
+                    } catch (Exception e) {
+                        if (selectedHistories != null) {
+                            log.error("Fehler beim Navigieren zum Termin mit ID {}: {}", selectedHistories.getId(), e.getMessage(), e);
+                        } else {
+                            log.error("Fehler beim Navigieren zum Termin: Ausgewähltes Item war null.", e);
+                        }
+                    }
+                }
+            });
+            return row;
+        });
+    }
+
 
 
     public void navigateToClient(Stage stage, Client client) throws IOException {

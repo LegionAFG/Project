@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -99,25 +100,68 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dfe3ee;" BorderPane.alignment="CENTER">
-            <TableView fx:id="historiesTable" layoutX="14.0" layoutY="29.0" prefHeight="248.0" prefWidth="611.0">
+
+            <TableView fx:id="historiesTable" layoutX="10.0" layoutY="26.0" prefHeight="200" prefWidth="620">
                 <columns>
-                    <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
-                    <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time" />
-                    <TableColumn fx:id="titleColumn" prefWidth="457.0" text="Titel" />
+                    <TableColumn fx:id="historiesDateColumn" prefWidth="100" text="Date">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="date" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="historiesTimeColumn" prefWidth="100" text="Time">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="time" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="titleColumn" prefWidth="420" text="Titel">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="title" />
+                        </cellValueFactory>
+                    </TableColumn>
                 </columns>
             </TableView>
-            <TableView fx:id="appointmentTableView" layoutX="14.0" layoutY="300.0" prefHeight="290.0" prefWidth="608.0">
+
+            <TableView fx:id="appointmentTable" layoutX="10.0" layoutY="257.0" prefHeight="337.0" prefWidth="620">
                 <columns>
-                    <TableColumn fx:id="appointmentDateColumn" prefWidth="75.0" text="Date" />
-                    <TableColumn fx:id="appointmentTimeColumn" prefWidth="75.0" text="Time" />
-                    <TableColumn fx:id="institutionColumn" prefWidth="118.0" text="Institution" />
-                    <TableColumn fx:id="appointmentPostCodeColumn" prefWidth="101.0" text="Post Code" />
-                    <TableColumn fx:id="appointmentCityColumn" prefWidth="82.0" text="City" />
-                    <TableColumn fx:id="appointmentStreetColumn" prefWidth="94.0" text="Street" />
-               <TableColumn fx:id="appointmentStatusColumn" prefWidth="62.0" text="Status" />
+                    <TableColumn fx:id="dateColumn" prefWidth="100" text="Date">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="date" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="timeColumn" prefWidth="100" text="Time">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="time" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="institutionColumn" prefWidth="180" text="Institution">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="institution" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="postCodeColumn" prefWidth="100" text="Post Code">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="postalCode" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="cityColumn" prefWidth="120" text="City">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="city" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="streetColumn" prefWidth="120" text="Street">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="street" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="statusColumn" prefWidth="100" text="Status">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="status" />
+                        </cellValueFactory>
+                    </TableColumn>
                 </columns>
             </TableView>
-            <Text fill="#3b5998" layoutX="14.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open appointments">
+
+            <Text fill="#3b5998" layoutX="14.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open appointments">
                 <font>
                     <Font name="System Bold" size="18.0" />
                 </font>

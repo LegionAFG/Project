@@ -116,7 +116,7 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dfe3ee;" BorderPane.alignment="CENTER">
-            <TableView fx:id="appointmentsTable" layoutX="5.0" layoutY="29.0" prefHeight="564.0" prefWidth="621.0">
+            <TableView fx:id="appointmentTable" layoutX="5.0" layoutY="29.0" prefHeight="564.0" prefWidth="621.0">
                 <columns>
                     <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date">
                         <cellValueFactory>

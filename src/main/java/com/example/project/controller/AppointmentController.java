@@ -43,7 +43,7 @@ public class AppointmentController {
     private ChoiceBox<String> statusChoiceBox;
 
     @FXML
-    private TableView<Appointment> appointmentsTable;
+    private TableView<Appointment> appointmentTable;
     @FXML
     private TableColumn<Appointment, String> institutionColumn;
     @FXML
@@ -105,7 +105,7 @@ public class AppointmentController {
     private void loadAppointments() {
         if (client != null) {
             List<Appointment> appointmentList = appointmentService.getAppointmentsByClient(client);
-            appointmentsTable.getItems().setAll(appointmentList);
+            appointmentTable.getItems().setAll(appointmentList);
         }
     }
 
