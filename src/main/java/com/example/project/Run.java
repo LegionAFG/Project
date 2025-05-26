@@ -5,14 +5,12 @@ import com.example.project.help.ViewUrls;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@RequiredArgsConstructor
 public class Run extends Application {
 
     private ConfigurableApplicationContext springContext;

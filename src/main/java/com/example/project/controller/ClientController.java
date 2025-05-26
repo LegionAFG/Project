@@ -57,7 +57,7 @@ public class ClientController {
                 //TODO All Countries
         );
 
-        nationalityChoiceBox.setValue("Nationalität");
+        nationalityChoiceBox.setValue("Bitte auswählen");
 
         //TODO doppelklick auf table view zu termin anzeigen
         //TODO doppelklick auf table view zu historie anzeigen
@@ -65,7 +65,7 @@ public class ClientController {
     }
 
     @FXML
-    public void homeButton() throws IOException {
+    public void handleHomeButtonClick() throws IOException {
 
         Stage stage = (Stage) homeButton.getScene().getWindow();
 
@@ -92,8 +92,6 @@ public class ClientController {
         genderChoiceBox.setValue(client.getGender());
         nationalityChoiceBox.setValue(client.getNationality());
         relationshipChoiceBox.setValue(client.getRelationship());
-
-
     }
 
 }

@@ -85,26 +85,8 @@ public class HomeController {
 
         clientTable.setItems(FXCollections.observableArrayList(clientService.getAllClients()));
 
-        //TODO doppelklick auf table view zu termin anzeigen
-
-        clientTable.setRowFactory(tv ->{
-            TableRow<Client> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty())) {
-
-                    Stage current = (Stage) clientTable.getScene().getWindow();
-
-                    try {
-                        naviButtonHelper.navigateToClient(current, row.getItem());
-                    } catch (Exception e) {
-                        log.error("Fehler beim Navigieren zum Client: {}", client.getId(), e);
-                    }
-                }
-            });
-            return row;
-        });
-
-        //TODO doppelklick auf table view zu client anzeigen
+        naviButtonHelper.rowNavigateToClient(clientTable);
+        naviButtonHelper.rowNavigateToAppointment(appointmentTable);
 
     }
 
