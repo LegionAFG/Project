@@ -39,4 +39,12 @@ public class AlertHelper {
         return result.isPresent() && result.get() == buttonYes;
     }
 
+    public void showAlertError(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fehler");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 }

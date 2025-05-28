@@ -10,17 +10,23 @@ import com.example.project.model.Histories;
 import com.example.project.service.AppointmentService;
 import com.example.project.service.ClientService;
 import com.example.project.service.HistoriesService;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class ClientController {
 
     private final NaviHelper naviButtonHelper;
@@ -152,16 +158,26 @@ public class ClientController {
     public void saveClientButtonClick() {
         if (client == null) {
             client = new Client();
-        }
-            client.setFirstname(firstNameField.getText());
-            client.setLastname(lastnameField.getText());
+
+            client.setFirstname(firstNameField.getText().trim());
+            client.setLastname(lastnameField.getText().trim());
             client.setBirthdate(birthDatePicker.getValue());
             client.setGender(genderChoiceBox.getValue());
             client.setNationality(nationalityChoiceBox.getValue());
             client.setRelationship(relationshipChoiceBox.getValue());
+        } try {
+            clientService.saveClient(client);
+            clientIdField.setText(String.valueOf(client.getId()));
+        } catch (Exception e) {
 
-        clientService.saveClient(client);
-        clientIdField.setText(String.valueOf(client.getId()));
+            log.error("Fehler beim Speichern des Clients", e);
+
+            alertHelper.showAlertError("Speichern fehlgeschlagen",
+                    "Client konnte nicht gespeichert werden. " +
+                            "Bitte überprüfen Sie alle Eingaben und versuchen Sie es erneut.");
+
+        }
+
     }
 
     public void setClient(Client client){
