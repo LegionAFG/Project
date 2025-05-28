@@ -17,14 +17,6 @@ public class AlertHelper {
         alert.showAndWait();
     }
 
-    public void showAlertWarning(String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warnung");
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     public boolean showAlertDelete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Löschen bestätigen");

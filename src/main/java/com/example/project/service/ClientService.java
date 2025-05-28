@@ -20,21 +20,15 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     @Transactional
-    public void saveClient(@Valid Client client) {
-
+    public Client saveClient(@Valid Client client) {
         if (client == null) {
             log.warn("Versuch, einen null-Client zu speichern");
             throw new IllegalArgumentException("Klient nicht gespeichert: keine Daten übergeben");
         }
 
-        log.info("Klient gespeichert {}", client);
-        clientRepository.save(client);
-    }
-
-    @Transactional(readOnly = true)
-    public Client getClientById(Long id) {
-        return clientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Klient nicht gefunden"));
+        Client saved = clientRepository.save(client);
+        log.info("Klient gespeichert mit ID {}", saved.getId());
+        return saved;
     }
 
     @Transactional(readOnly = true)

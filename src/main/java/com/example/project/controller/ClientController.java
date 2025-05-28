@@ -10,8 +10,6 @@ import com.example.project.model.Histories;
 import com.example.project.service.AppointmentService;
 import com.example.project.service.ClientService;
 import com.example.project.service.HistoriesService;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -40,6 +36,8 @@ public class ClientController {
 
     @FXML
     private Button homeButton;
+    @FXML
+    private Button saveButton;
     @FXML
     private Button historiesButton;
     @FXML
@@ -88,6 +86,8 @@ public class ClientController {
     @FXML
     public void initialize() {
 
+        updateSaveButtonLabel();
+
         clientIdField.setEditable(false);
         birthDatePicker.setEditable(false);
 
@@ -122,7 +122,6 @@ public class ClientController {
     public void handleAppointmentButtonClick() throws IOException {
         Stage stage = (Stage) appointmentButton.getScene().getWindow();
 
-
         if (client != null) {
             naviButtonHelper.navigateToAppointmentButton(stage, client);
         } else {
@@ -156,8 +155,10 @@ public class ClientController {
 
     @FXML
     public void saveClientButtonClick() {
-        if (client == null) {
-            client = new Client();
+        try {
+            if (client == null) {
+                client = new Client();
+            }
 
             client.setFirstname(firstNameField.getText().trim());
             client.setLastname(lastnameField.getText().trim());
@@ -165,20 +166,21 @@ public class ClientController {
             client.setGender(genderChoiceBox.getValue());
             client.setNationality(nationalityChoiceBox.getValue());
             client.setRelationship(relationshipChoiceBox.getValue());
-        } try {
-            clientService.saveClient(client);
+
+            client = clientService.saveClient(client);
+
             clientIdField.setText(String.valueOf(client.getId()));
+            updateSaveButtonLabel();
+
         } catch (Exception e) {
-
             log.error("Fehler beim Speichern des Clients", e);
-
-            alertHelper.showAlertError("Speichern fehlgeschlagen",
-                    "Client konnte nicht gespeichert werden. " +
-                            "Bitte überprüfen Sie alle Eingaben und versuchen Sie es erneut.");
-
+            alertHelper.showAlertError(
+                    "Speichern fehlgeschlagen",
+                    "Client konnte nicht gespeichert werden. Bitte überprüfe alle Eingaben und versuche es erneut."
+            );
         }
-
     }
+
 
     public void setClient(Client client){
         this.client = client;
@@ -202,6 +204,16 @@ public class ClientController {
                 )
         );
 
+        updateSaveButtonLabel();
+
+    }
+
+    private void updateSaveButtonLabel() {
+        if (client != null && client.getId() != null) {
+            saveButton.setText("Update");
+        } else {
+            saveButton.setText("Save");
+        }
     }
 
 }
