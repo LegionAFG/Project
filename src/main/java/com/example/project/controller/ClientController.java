@@ -33,8 +33,6 @@ public class ClientController {
     @FXML
     private Button homeButton;
     @FXML
-    private Button saveButton;
-    @FXML
     private Button historiesButton;
     @FXML
     private Button appointmentButton;
@@ -144,8 +142,13 @@ public class ClientController {
         alert.showAndWait();
     }
 
-    //TODO Delete Button implementieren
+    @FXML
+    public void deleteClientButtonClick() throws IOException {
+        clientService.deleteClientById(client.getId());
+        handleHomeButtonClick();
+    }
 
+    @FXML
     public void saveClientButtonClick() {
         if (client == null) {
             client = new Client();
