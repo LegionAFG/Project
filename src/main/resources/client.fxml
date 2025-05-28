@@ -58,7 +58,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </ChoiceBox>
-                <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8ec582;" text="SAVE" textFill="#f7f7f7">
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveClientButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8ec582;" text="SAVE" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>

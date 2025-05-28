@@ -7,6 +7,7 @@ import com.example.project.model.Appointment;
 import com.example.project.model.Client;
 import com.example.project.model.Histories;
 import com.example.project.service.AppointmentService;
+import com.example.project.service.ClientService;
 import com.example.project.service.HistoriesService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -16,22 +17,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class ClientController {
 
-
     private final NaviHelper naviButtonHelper;
     private final NaviRowHelper naviRowHelper;
     private final AppointmentService appointmentService;
     private final HistoriesService historiesService;
+    private final ClientService clientService;
 
     Client client;
 
     @FXML
     private Button homeButton;
+    @FXML
+    private Button saveButton;
     @FXML
     private Button historiesButton;
     @FXML
@@ -88,7 +90,12 @@ public class ClientController {
                 //TODO All Countries
         );
 
+        genderChoiceBox.getItems().addAll("Männlich", "Weiblich", "Divers");
+        relationshipChoiceBox.getItems().addAll("Ledig", "Verheiratet", "Geschieden", "Verwitwet");
+
         nationalityChoiceBox.setValue("Bitte auswählen");
+        genderChoiceBox.setValue("Bitte auswählen");
+        relationshipChoiceBox.setValue("Bitte auswählen");
 
         naviRowHelper.rowNavigateToAppointment(appointmentTable);
         naviRowHelper.rowNavigateToHistories(historiesTable);
@@ -139,7 +146,20 @@ public class ClientController {
 
     //TODO Delete Button implementieren
 
-    //TODO Save Button implementieren
+    public void saveClientButtonClick() {
+        if (client == null) {
+            client = new Client();
+        }
+            client.setFirstname(firstNameField.getText());
+            client.setLastname(lastnameField.getText());
+            client.setBirthdate(birthDatePicker.getValue());
+            client.setGender(genderChoiceBox.getValue());
+            client.setNationality(nationalityChoiceBox.getValue());
+            client.setRelationship(relationshipChoiceBox.getValue());
+
+        clientService.saveClient(client);
+        clientIdField.setText(String.valueOf(client.getId()));
+    }
 
     public void setClient(Client client){
         this.client = client;
