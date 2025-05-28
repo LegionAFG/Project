@@ -1,9 +1,6 @@
 package com.example.project.controller;
 
-import com.example.project.help.AlertHelper;
-import com.example.project.help.NaviHelper;
-import com.example.project.help.NaviRowHelper;
-import com.example.project.help.ViewUrls;
+import com.example.project.help.*;
 import com.example.project.model.Appointment;
 import com.example.project.model.Client;
 import com.example.project.model.Histories;
@@ -92,8 +89,7 @@ public class ClientController {
         birthDatePicker.setEditable(false);
 
         nationalityChoiceBox.getItems().addAll(
-                "Österreich", "Deutschland", "Schweiz", "Frankreich", "USA"
-                //TODO All Countries
+                CountryHelper.ALL_COUNTRIES
         );
 
         genderChoiceBox.getItems().addAll("Männlich", "Weiblich", "Divers");
