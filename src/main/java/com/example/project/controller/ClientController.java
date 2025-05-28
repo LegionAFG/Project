@@ -1,5 +1,6 @@
 package com.example.project.controller;
 
+import com.example.project.help.AlertHelper;
 import com.example.project.help.NaviHelper;
 import com.example.project.help.NaviRowHelper;
 import com.example.project.help.ViewUrls;
@@ -27,6 +28,7 @@ public class ClientController {
     private final AppointmentService appointmentService;
     private final HistoriesService historiesService;
     private final ClientService clientService;
+    private final AlertHelper alertHelper;
 
     Client client;
 
@@ -118,7 +120,7 @@ public class ClientController {
         if (client != null) {
             naviButtonHelper.navigateToAppointmentButton(stage, client);
         } else {
-            showAlert();
+            alertHelper.showAlertInformation(null,"Kein Client ausgewählt");
         }
     }
 
@@ -130,22 +132,20 @@ public class ClientController {
         if (client != null) {
             naviButtonHelper.navigateToHistoriesButton(stage, client);
         } else {
-            showAlert();
+            alertHelper.showAlertInformation(null,"Kein Client ausgewählt");
         }
-    }
-
-    private void showAlert() {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText(null);
-        alert.setContentText("Kein Client ausgewählt.");
-        alert.showAndWait();
     }
 
     @FXML
     public void deleteClientButtonClick() throws IOException {
-        clientService.deleteClientById(client.getId());
-        handleHomeButtonClick();
+
+        boolean confirmed = alertHelper.showAlertDelete();
+
+        if (confirmed) {
+
+            clientService.deleteClientById(client.getId());
+            handleHomeButtonClick();
+        }
     }
 
     @FXML
