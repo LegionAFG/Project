@@ -62,10 +62,15 @@ public class HistoriesController {
         historieIdField.setEditable(false);
         datePickerField.setEditable(false);
 
-
-        //TODO doppelklick auf table view zu termin anzeigen
-        //TODO doppelklick auf table view zu historie anzeigen
-
+        historiesTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        setHistories(newValue);
+                    } else {
+                        clearForm();
+                    }
+                }
+        );
 
     }
 
@@ -85,11 +90,12 @@ public class HistoriesController {
 
     public void setHistories(Histories histories){
         this.histories = histories;
-        loadHistories();
 
         historieIdField.setText(histories.getClient().getId().toString());
         timeField.setText(String.valueOf(histories.getTime()));
         titleField.setText(histories.getTitle());
+
+        updateSaveButtonLabel();
     }
 
     private void loadHistories() {
