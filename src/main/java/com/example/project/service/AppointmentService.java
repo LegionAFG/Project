@@ -19,15 +19,15 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
 
     @Transactional
-    public void saveAppointment(Appointment appointment) {
-        log.info("Termin gespeichert {}", appointment);
-        appointmentRepository.save(appointment);
-    }
+    public Appointment saveAppointment(Appointment appointment) {
 
-    @Transactional(readOnly = true)
-    public Appointment getAppointmentById(Long id) {
-        return appointmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Termin mit nicht gefunden"));
+        Appointment saved = appointmentRepository.save(appointment);
+
+        log.info("Termin gespeichert (id={}, clientId={})",
+                saved.getId(),
+                saved.getClient() != null ? saved.getClient().getId() : null);
+
+        return saved;
     }
 
     @Transactional(readOnly = true)

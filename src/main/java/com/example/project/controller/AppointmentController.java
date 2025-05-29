@@ -9,12 +9,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Scope("prototype")
 public class AppointmentController {
 
     private final NaviHelper naviButtonHelper;
@@ -30,7 +33,7 @@ public class AppointmentController {
     @FXML
     private TextField institutionField;
     @FXML
-    private TextField cityFiled;
+    private TextField cityField;
     @FXML
     private TextField streetField;
     @FXML
@@ -94,7 +97,7 @@ public class AppointmentController {
 
         appointmentIdField.setText(appointment.getClient().getId().toString());
         institutionField.setText(appointment.getInstitution());
-        cityFiled.setText(appointment.getCity());
+        cityField.setText(appointment.getCity());
         streetField.setText(appointment.getStreet());
         postCodeField.setText(String.valueOf(appointment.getPostalCode()));
         timeField.setText(appointment.getTime().toString());
@@ -112,8 +115,50 @@ public class AppointmentController {
     //TODO Delete Button implementieren
 
     //TODO Save Button implementieren
+    @FXML
+    private void saveAppointmentButtonClick() {
+
+        try {
+
+            if (appointment == null) {
+                appointment = new Appointment();
+                appointment.setClient(client);
+            }
+
+            appointment.setInstitution(institutionField.getText().trim());
+            appointment.setCity(cityField.getText().trim());
+            appointment.setStreet(streetField.getText().trim());
+            appointment.setPostalCode(Integer.parseInt(postCodeField.getText().trim()));
+            appointment.setTime(LocalTime.parse(timeField.getText().trim()));
+            appointment.setDate(datePickerField.getValue());
+            appointment.setStatus(statusChoiceBox.getValue());
+
+            appointment = appointmentService.saveAppointment(appointment);
+
+            appointmentIdField.setText(String.valueOf(client.getId()));
+            loadAppointments();
+            clearForm();
+
+        } catch (Exception e) {
+
+            throw new RuntimeException("Fehler beim Speichern", e);
+        }
+
+        }
+
+    private void clearForm() {
+        appointment = null;
+        appointmentIdField.clear();
+        institutionField.clear();
+        cityField.clear();
+        streetField.clear();
+        postCodeField.clear();
+        timeField.clear();
+        datePickerField.setValue(null);
+        statusChoiceBox.setValue("Bitte auswählen");
+    }
+
 
     //TODO Back Button implementieren
-
 
 }
