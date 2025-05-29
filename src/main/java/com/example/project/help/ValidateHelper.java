@@ -31,9 +31,8 @@ public class ValidateHelper {
                                        TextField timeField,
                                        ChoiceBox<String> statusChoiceBox) {
 
-
         if (isEmptyOrNoMatch(postCodeField, "^\\d{4,5}$",
-                "Ungültige Postleitzahl", "Bitte 4- oder 5-stellige Zahl eingeben."))
+                "Ungültige Postleitzahl", "Bitte 4‑ oder 5‑stellige Zahl eingeben."))
             return false;
 
         if (datePickerField.getValue() == null) {
@@ -43,23 +42,19 @@ public class ValidateHelper {
         }
 
         if (isEmptyOrNoMatch(institutionField, "^[\\p{L} ]+$",
-                "Ungültige Institution",
-                "Nur Buchstaben und Leerzeichen erlaubt."))
+                "Ungültige Institution", "Nur Buchstaben und Leerzeichen erlaubt."))
             return false;
 
         if (isEmptyOrNoMatch(cityField, "^[\\p{L} ]+$",
-                "Ungültige Stadt",
-                "Nur Buchstaben und Leerzeichen erlaubt."))
+                "Ungültige Stadt", "Nur Buchstaben und Leerzeichen erlaubt."))
             return false;
 
         if (isEmptyOrNoMatch(streetField, "^[\\p{L}\\d\\s/\\-.]+$",
-                "Ungültige Straße",
-                "Nur Buchstaben, Zahlen, Leerzeichen, '/', '-' oder '.' erlaubt."))
+                "Ungültige Straße", "Nur Buchstaben, Zahlen, Leerzeichen, '/', '-' oder '.' erlaubt."))
             return false;
 
         if (isEmptyOrNoMatch(timeField, "([01]\\d|2[0-3]):[0-5]\\d",
-                "Ungültige Uhrzeit",
-                "Format HH:mm, z. B. 09:45."))
+                "Ungültige Uhrzeit", "Format HH:mm, z. B. 09:45."))
             return false;
 
         if ("Bitte auswählen".equals(statusChoiceBox.getValue())) {
@@ -67,7 +62,6 @@ public class ValidateHelper {
             statusChoiceBox.requestFocus();
             return false;
         }
-
         return true;
     }
 
@@ -79,13 +73,11 @@ public class ValidateHelper {
                                   ChoiceBox<String> relationshipChoiceBox) {
 
         if (isEmptyOrNoMatch(firstNameField, "^[\\p{L} ]+$",
-                "Ungültiger Vorname",
-                "Nur Buchstaben und Leerzeichen erlaubt."))
+                "Ungültiger Vorname", "Nur Buchstaben und Leerzeichen erlaubt."))
             return false;
 
         if (isEmptyOrNoMatch(lastNameField, "^[\\p{L} ]+$",
-                "Ungültiger Nachname",
-                "Nur Buchstaben und Leerzeichen erlaubt."))
+                "Ungültiger Nachname", "Nur Buchstaben und Leerzeichen erlaubt."))
             return false;
 
         LocalDate dob = birthDatePicker.getValue();
@@ -117,9 +109,31 @@ public class ValidateHelper {
             relationshipChoiceBox.requestFocus();
             return false;
         }
-
         return true;
     }
 
+    public boolean validateHistories(TextField titleField,
+                                     DatePicker datePicker,
+                                     TextArea descriptionArea,
+                                     TextField timeField) {
 
+        if (datePicker.getValue() == null) {
+            alertHelper.showAlertError("Datum fehlt", "Bitte wähle ein Datum aus.");
+            datePicker.requestFocus();
+            return false;
+        }
+
+        if (isEmptyOrNoMatch(titleField, "^[\\p{L} ]+$",
+                "Ungültiger Titel", "Nur Buchstaben und Leerzeichen erlaubt."))
+            return false;
+
+        if (descriptionArea.getText().trim().isEmpty()) {
+            alertHelper.showAlertError("Beschreibung fehlt", "Bitte gib eine Beschreibung ein.");
+            descriptionArea.requestFocus();
+            return false;
+        }
+
+        return !isEmptyOrNoMatch(timeField, "([01]\\d|2[0-3]):[0-5]\\d",
+                "Ungültige Uhrzeit", "Format HH:mm, z. B. 09:45.");
+    }
 }
