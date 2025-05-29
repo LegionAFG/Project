@@ -180,7 +180,12 @@ public class AppointmentController {
 
             appointment = appointmentService.saveAppointment(appointment);
 
-            appointmentIdField.setText(String.valueOf(client.getId()));
+            if (appointment != null && appointment.getId() != null) {
+                appointmentIdField.setText(String.valueOf(appointment.getId()));
+            } else {
+                appointmentIdField.clear();
+            }
+
             loadAppointments();
             clearForm();
             updateSaveButtonLabel();

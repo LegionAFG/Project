@@ -20,14 +20,14 @@ public class HistoriesService {
 
     @Transactional
     public Histories saveHistories(Histories histories) {
-        log.info("Historie gespeichert {}", histories);
-        return historiesRepository.save(histories);
-    }
 
-    @Transactional(readOnly = true)
-    public Histories getHistoriesById(Long id) {
-        return historiesRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Historie mit nicht gefunden"));
+        Histories saved = historiesRepository.save(histories);
+
+        log.info("Histories gespeichert (id={}, clientId={})",
+                saved.getId(),
+                saved.getClient() != null ? saved.getClient().getId() : null);
+
+        return saved;
     }
 
     @Transactional(readOnly = true)
@@ -36,8 +36,8 @@ public class HistoriesService {
     }
 
     @Transactional
-    public void deleteHistories(Long id){
-        if(!historiesRepository.existsById(id))
+    public void deleteHistories(Long id) {
+        if (!historiesRepository.existsById(id))
             throw new EntityNotFoundException("Historie mit ID " + id + " nicht gefunden");
         log.info("Historie gelöscht mit ID : {}", id);
         historiesRepository.deleteById(id);
