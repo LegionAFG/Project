@@ -83,8 +83,15 @@ public class AppointmentController {
 
         statusChoiceBox.setValue("Bitte auswählen");
 
-        //TODO doppelklick auf table view zu termin anzeigen
-        //TODO doppelklick auf table view zu historie anzeigen
+        appointmentTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        setAppointment(newValue);
+                    } else {
+                        clearForm();
+                    }
+                }
+        );
 
     }
 
@@ -106,7 +113,7 @@ public class AppointmentController {
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
 
-        appointmentIdField.setText(appointment.getClient().getId().toString());
+        appointmentIdField.setText(appointment.getId().toString());
         institutionField.setText(appointment.getInstitution());
         cityField.setText(appointment.getCity());
         streetField.setText(appointment.getStreet());
@@ -125,9 +132,27 @@ public class AppointmentController {
         }
     }
 
-    //TODO Delete Button implementieren
+    @FXML
+    public void deleteAppointmentButtonClick() {
 
-    //TODO Save Button implementieren
+        Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
+        boolean confirmed = alertHelper.showAlertDelete();
+
+        if (selectedAppointment == null) {
+            alertHelper.showAlertInformation("Keine Auswahl",
+                    "Bitte wählen Sie zuerst einen Termin aus der Tabelle aus, den Sie löschen möchten.");
+            return;
+        }
+
+        if (confirmed) {
+
+            appointmentService.deleteAppointment(selectedAppointment.getId());
+
+            loadAppointments();
+
+        }
+    }
+
     @FXML
     private void saveAppointmentButtonClick() {
 
@@ -139,7 +164,6 @@ public class AppointmentController {
                     timeField, statusChoiceBox)) {
                 return;
             }
-
 
             if (appointment == null) {
                 appointment = new Appointment();
@@ -164,11 +188,6 @@ public class AppointmentController {
         } catch (Exception e) {
 
             log.error("Fehler beim Speichern des Appointments", e);
-            alertHelper.showAlertError(
-                    "Speichern fehlgeschlagen",
-                    "Appointment konnte nicht gespeichert werden. " +
-                            "Bitte überprüfe alle Eingaben und versuche es erneut."
-            );
         }
     }
 

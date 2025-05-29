@@ -12,7 +12,6 @@ public class ValidateHelper {
 
     private final AlertHelper alertHelper;
 
-
     private boolean isEmptyOrNoMatch(TextInputControl field, String regex,
                                      String title, String msg) {
         String text = field.getText().trim();

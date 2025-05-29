@@ -103,7 +103,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="onDelete" mnemonicParsing="false" prefHeight="54.0" prefWidth="150.0" style="-fx-background-color: #740001;" text="DELETE" textFill="#f7f7f7">
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAppointmentButtonClick" prefHeight="54.0" prefWidth="150.0" style="-fx-background-color: #740001;" text="DELETE" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
