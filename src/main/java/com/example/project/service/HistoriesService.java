@@ -19,9 +19,9 @@ public class HistoriesService {
     private final HistoriesRepository historiesRepository;
 
     @Transactional
-    public void saveHistories(Histories histories) {
+    public Histories saveHistories(Histories histories) {
         log.info("Historie gespeichert {}", histories);
-        historiesRepository.save(histories);
+        return historiesRepository.save(histories);
     }
 
     @Transactional(readOnly = true)
