@@ -1,5 +1,6 @@
 package com.example.project.controller;
 
+import com.example.project.help.AlertHelper;
 import com.example.project.help.NaviHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Appointment;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,16 +20,20 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Scope("prototype")
+@Slf4j
 public class AppointmentController {
 
     private final NaviHelper naviButtonHelper;
     private final AppointmentService appointmentService;
+    private final AlertHelper alertHelper;
 
     Client client;
     Appointment appointment;
 
     @FXML
     private Button homeButton;
+    @FXML
+    private Button saveButton;
     @FXML
     private TextField appointmentIdField;
     @FXML
@@ -64,6 +70,9 @@ public class AppointmentController {
 
 
     public void initialize() {
+
+        updateSaveButtonLabel();
+
 
         appointmentIdField.setEditable(false);
         datePickerField.setEditable(false);
@@ -103,6 +112,8 @@ public class AppointmentController {
         timeField.setText(appointment.getTime().toString());
         datePickerField.setValue(appointment.getDate());
         statusChoiceBox.setValue(appointment.getStatus());
+
+        updateSaveButtonLabel();
     }
 
     private void loadAppointments() {
@@ -138,13 +149,18 @@ public class AppointmentController {
             appointmentIdField.setText(String.valueOf(client.getId()));
             loadAppointments();
             clearForm();
+            updateSaveButtonLabel();
 
         } catch (Exception e) {
 
-            throw new RuntimeException("Fehler beim Speichern", e);
+            log.error("Fehler beim Speichern des Appointments", e);
+            alertHelper.showAlertError(
+                    "Speichern fehlgeschlagen",
+                    "Appointment konnte nicht gespeichert werden. " +
+                            "Bitte überprüfe alle Eingaben und versuche es erneut."
+            );
         }
-
-        }
+    }
 
     private void clearForm() {
         appointment = null;
@@ -156,6 +172,15 @@ public class AppointmentController {
         timeField.clear();
         datePickerField.setValue(null);
         statusChoiceBox.setValue("Bitte auswählen");
+        updateSaveButtonLabel();
+    }
+
+    private void updateSaveButtonLabel() {
+        if (appointment != null && appointment.getId() != null) {
+            saveButton.setText("Update");
+        } else {
+            saveButton.setText("Save");
+        }
     }
 
 

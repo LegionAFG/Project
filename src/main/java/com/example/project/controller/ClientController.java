@@ -172,7 +172,8 @@ public class ClientController {
             log.error("Fehler beim Speichern des Clients", e);
             alertHelper.showAlertError(
                     "Speichern fehlgeschlagen",
-                    "Client konnte nicht gespeichert werden. Bitte überprüfe alle Eingaben und versuche es erneut."
+                    "Client konnte nicht gespeichert werden. " +
+                            "Bitte überprüfe alle Eingaben und versuche es erneut."
             );
         }
     }
