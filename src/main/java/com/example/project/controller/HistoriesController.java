@@ -1,5 +1,6 @@
 package com.example.project.controller;
 
+import com.example.project.help.AlertHelper;
 import com.example.project.help.NaviHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Client;
@@ -19,7 +20,7 @@ public class HistoriesController {
 
     private final NaviHelper naviButtonHelper;
     private final HistoriesService historiesService;
-
+    private final AlertHelper alertHelper;
     Histories histories;
     Client client;
 
@@ -89,7 +90,26 @@ public class HistoriesController {
         }
     }
 
-    //TODO Delete Button implementieren
+    @FXML
+    public void deleteHistoriesButtonClick() {
+
+        Histories selectHistories = historiesTable.getSelectionModel().getSelectedItem();
+        boolean confirmed = alertHelper.showAlertDelete();
+
+        if (selectHistories == null) {
+            alertHelper.showAlertInformation("Keine Auswahl",
+                    "Bitte wählen Sie zuerst einen Termin aus der Tabelle aus, den Sie löschen möchten.");
+            return;
+        }
+
+        if (confirmed) {
+
+            historiesService.deleteHistories(selectHistories.getId());
+
+            loadHistories();
+
+        }
+    }
 
     //TODO Save Button implementieren
 
