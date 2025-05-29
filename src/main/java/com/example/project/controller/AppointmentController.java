@@ -2,6 +2,7 @@ package com.example.project.controller;
 
 import com.example.project.help.AlertHelper;
 import com.example.project.help.NaviHelper;
+import com.example.project.help.ValidateHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Appointment;
 import com.example.project.model.Client;
@@ -26,6 +27,7 @@ public class AppointmentController {
     private final NaviHelper naviButtonHelper;
     private final AppointmentService appointmentService;
     private final AlertHelper alertHelper;
+    private final ValidateHelper validateHelper;
 
     Client client;
     Appointment appointment;
@@ -130,6 +132,14 @@ public class AppointmentController {
     private void saveAppointmentButtonClick() {
 
         try {
+
+            if (!validateHelper.validateAppointment(
+                    postCodeField, datePickerField,
+                    institutionField, cityField, streetField,
+                    timeField, statusChoiceBox)) {
+                return;
+            }
+
 
             if (appointment == null) {
                 appointment = new Appointment();

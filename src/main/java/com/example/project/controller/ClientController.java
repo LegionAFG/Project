@@ -28,6 +28,7 @@ public class ClientController {
     private final HistoriesService historiesService;
     private final ClientService clientService;
     private final AlertHelper alertHelper;
+    private final ValidateHelper validateHelper;
 
     Client client;
 
@@ -152,6 +153,13 @@ public class ClientController {
     @FXML
     public void saveClientButtonClick() {
         try {
+
+            if (!validateHelper.validateClient(
+                    firstNameField, lastnameField, birthDatePicker,
+                    genderChoiceBox, nationalityChoiceBox, relationshipChoiceBox)) {
+                return;
+            }
+
             if (client == null) {
                 client = new Client();
             }
@@ -170,11 +178,7 @@ public class ClientController {
 
         } catch (Exception e) {
             log.error("Fehler beim Speichern des Clients", e);
-            alertHelper.showAlertError(
-                    "Speichern fehlgeschlagen",
-                    "Client konnte nicht gespeichert werden. " +
-                            "Bitte überprüfe alle Eingaben und versuche es erneut."
-            );
+
         }
     }
 

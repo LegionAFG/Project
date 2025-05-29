@@ -4,6 +4,7 @@ import com.example.project.model.Appointment;
 import com.example.project.model.Client;
 import com.example.project.repository.AppointmentRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
 
     @Transactional
-    public Appointment saveAppointment(Appointment appointment) {
+    public Appointment saveAppointment(@Valid Appointment appointment) {
 
         Appointment saved = appointmentRepository.save(appointment);
 
