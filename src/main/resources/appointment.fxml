@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -103,7 +102,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAppointmentButtonClick" prefHeight="54.0" prefWidth="150.0" style="-fx-background-color: #740001;" text="DELETE" textFill="#f7f7f7">
+                <Button mnemonicParsing="false" onAction="#deleteAppointmentButtonClick" prefHeight="54.0" prefWidth="150.0" style="-fx-background-color: #740001;" text="DELETE" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -119,39 +118,18 @@
             <TableView fx:id="appointmentTable" layoutX="5.0" layoutY="29.0" prefHeight="564.0" prefWidth="621.0">
                 <columns>
                     <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="date" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="time" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="institutionColumn" prefWidth="82.0" text="Institution">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="institution" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="postCodeColumn" prefWidth="86.0" text="Post Code">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="postalCode" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="cityColumn" prefWidth="84.0" text="City">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="city" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="streetColumn" prefWidth="83.0" text="Street">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="street" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="statusColumn" prefWidth="131.0" text="Status">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="status" />
-                        </cellValueFactory>
                     </TableColumn>
                 </columns>
             </TableView>

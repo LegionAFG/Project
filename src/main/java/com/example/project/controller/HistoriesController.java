@@ -7,6 +7,7 @@ import com.example.project.help.ViewUrls;
 import com.example.project.model.Client;
 import com.example.project.model.Histories;
 import com.example.project.service.HistoriesService;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -61,6 +62,16 @@ public class HistoriesController {
 
     @FXML
     private void initialize() {
+
+        titleColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTitle()));
+
+        timeColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTime().toString()));
+
+        dateColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
+
         historieIdField.setEditable(false);
         datePickerField.setEditable(false);
 
@@ -222,6 +233,6 @@ public class HistoriesController {
     @FXML
     public void backToClientButton() throws IOException {
         Stage stage = (Stage) homeButton.getScene().getWindow();
-        naviButtonHelper.navigateToClient(stage,client);
+        naviButtonHelper.navigateToClient(stage, client);
     }
 }

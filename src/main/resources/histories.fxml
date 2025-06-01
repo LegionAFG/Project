@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -87,19 +86,10 @@
             <TableView fx:id="historiesTable" layoutX="5.0" layoutY="29.0" prefHeight="213.0" prefWidth="622.0">
                 <columns>
                     <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="date" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="time" />
-                        </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="titleColumn" prefWidth="466.4" text="Titel">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="title" />
-                        </cellValueFactory>
                     </TableColumn>
                 </columns>
             </TableView>

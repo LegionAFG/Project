@@ -7,6 +7,8 @@ import com.example.project.help.ViewUrls;
 import com.example.project.model.Appointment;
 import com.example.project.model.Client;
 import com.example.project.service.AppointmentService;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -67,7 +69,7 @@ public class AppointmentController {
     @FXML
     private TableColumn<Appointment, String> timeColumn;
     @FXML
-    private TableColumn<Appointment, Long> postCodeColumn;
+    private TableColumn<Appointment, Integer> postCodeColumn;
     @FXML
     private TableColumn<Appointment, String> cityColumn;
     @FXML
@@ -75,6 +77,28 @@ public class AppointmentController {
 
     @FXML
     public void initialize() {
+
+        institutionColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getInstitution()));
+
+        statusColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getStatus()));
+
+        dateColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate().toString()));
+
+        timeColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getTime().toString()));
+
+        postCodeColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getPostalCode()));
+
+        cityColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getCity()));
+
+        streetColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStreet()));
+
         updateSaveButtonLabel();
 
         appointmentIdField.setEditable(false);

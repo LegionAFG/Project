@@ -7,6 +7,8 @@ import com.example.project.model.Histories;
 import com.example.project.service.AppointmentService;
 import com.example.project.service.ClientService;
 import com.example.project.service.HistoriesService;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -68,7 +70,7 @@ public class ClientController {
     @FXML
     private TableColumn<Appointment, String> timeColumn;
     @FXML
-    private TableColumn<Appointment, Long> postCodeColumn;
+    private TableColumn<Appointment, Integer> postCodeColumn;
     @FXML
     private TableColumn<Appointment, String> cityColumn;
     @FXML
@@ -85,6 +87,38 @@ public class ClientController {
 
     @FXML
     public void initialize() {
+
+        institutionColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getInstitution()));
+
+        statusColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getStatus()));
+
+        dateColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate().toString()));
+
+        timeColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getTime().toString()));
+
+        postCodeColumn.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getPostalCode()));
+
+        cityColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getCity()));
+
+        streetColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStreet()));
+
+        titleColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTitle()));
+
+        historiesTimeColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTime().toString()));
+
+        historiesDateColumn.setCellValueFactory(
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
+
+
         updateSaveButtonLabel();
 
         clientIdField.setEditable(false);
