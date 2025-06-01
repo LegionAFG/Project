@@ -218,4 +218,10 @@ public class HistoriesController {
             saveButton.setText("Save");
         }
     }
+
+    @FXML
+    public void backToClientButton() throws IOException {
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        naviButtonHelper.navigateToClient(stage,client);
+    }
 }

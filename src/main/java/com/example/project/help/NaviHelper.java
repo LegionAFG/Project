@@ -1,6 +1,7 @@
 package com.example.project.help;
 
 import com.example.project.controller.AppointmentController;
+import com.example.project.controller.ClientController;
 import com.example.project.controller.HistoriesController;
 import com.example.project.model.Client;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +22,6 @@ public class NaviHelper {
 
     private final ConfigurableApplicationContext springContext;
 
-    public void fxmlLoader(Stage stage, String fxmlUrl) throws IOException {
-        fxmlLoader(stage, fxmlUrl, null);
-    }
-
     public void fxmlLoader(Stage stage, String fxmlUrl, Object model) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlUrl));
         loader.setControllerFactory(springContext::getBean);
@@ -32,17 +29,23 @@ public class NaviHelper {
 
         Object controller = loader.getController();
 
-        if (model != null) {
+        if (model != null && controller != null) {
 
             if (controller instanceof AppointmentController && model instanceof Client) {
-               ((AppointmentController) controller).setClient((Client) model);
-               log.debug("Appointment-Modell an AppointmentController übergeben: {}", ((Client) model).getId());
+                ((AppointmentController) controller).setClient((Client) model);
+                log.debug("Client-Modell an AppointmentController übergeben: {}", ((Client) model).getId());
             }
-             else if (controller instanceof HistoriesController && model instanceof Client) {
-            ((HistoriesController) controller).setClient((Client) model);
 
-             }
-            else if (controller != null) {
+            else if (controller instanceof HistoriesController && model instanceof Client) {
+                ((HistoriesController) controller).setClient((Client) model);
+                log.debug("Client-Modell an HistoriesController übergeben: {}", ((Client) model).getId());
+            }
+
+            else if (controller instanceof ClientController && model instanceof Client) {
+                ((ClientController) controller).setClient((Client) model);
+                log.debug("Client-Modell an ClientController übergeben: {}", ((Client) model).getId());
+            }
+            else {
                 log.warn("Modell vom Typ {} konnte nicht an Controller {} übergeben werden. Kein passender Setter implementiert/erkannt.",
                         model.getClass().getSimpleName(), controller.getClass().getSimpleName());
             }
@@ -53,8 +56,16 @@ public class NaviHelper {
         stage.show();
     }
 
+    public void fxmlLoader(Stage stage, String fxmlUrl) throws IOException {
+        fxmlLoader(stage, fxmlUrl, null);
+    }
+
     public void navigateTo(Stage stage, String fxmlUrl) throws IOException {
         fxmlLoader(stage, fxmlUrl);
+    }
+
+    public void navigateToClient(Stage stage, Client client) throws IOException {
+        fxmlLoader(stage, ViewUrls.CLIENT_URL, client);
     }
 
     public void navigateToHistoriesButton(Stage stage, Client client) throws IOException {
@@ -64,4 +75,5 @@ public class NaviHelper {
     public void navigateToAppointmentButton(Stage stage, Client client) throws IOException {
         fxmlLoader(stage, ViewUrls.APPOINTMENT_URL, client);
     }
+
 }

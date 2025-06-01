@@ -18,7 +18,7 @@
     <left>
         <AnchorPane prefHeight="530.0" prefWidth="168.0" style="-fx-background-color: #3b5998;" BorderPane.alignment="CENTER">
             <VBox layoutX="9.0" layoutY="14.0" prefHeight="579.0" prefWidth="150.0">
-                <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="BACK" textFill="#f7f7f7">
+                <Button mnemonicParsing="false" onAction="#backToClientButton" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="BACK" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
