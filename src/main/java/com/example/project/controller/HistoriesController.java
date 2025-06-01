@@ -2,7 +2,7 @@ package com.example.project.controller;
 
 import com.example.project.help.AlertHelper;
 import com.example.project.help.NaviHelper;
-import com.example.project.help.ValidateHelper;
+import com.example.project.help.ValidationHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Client;
 import com.example.project.model.Histories;
@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class HistoriesController {
     private final NaviHelper naviButtonHelper;
     private final HistoriesService historiesService;
     private final AlertHelper alertHelper;
-    private final ValidateHelper validateHelper;
+    private final ValidationHelper validationHelper;
 
     Histories histories;
     Client client;
@@ -79,7 +80,7 @@ public class HistoriesController {
     }
 
     @FXML
-    public void handleHomeButtonClick() throws Exception {
+    public void handleHomeButtonClick() throws IOException {
         Stage stage = (Stage) homeButton.getScene().getWindow();
         String url = ViewUrls.HOME_URL;
         naviButtonHelper.navigateTo(stage, url);
@@ -119,7 +120,6 @@ public class HistoriesController {
             try {
                 List<Histories> historiesList = historiesService.getHistoriesByClient(client);
                 historiesTable.getItems().setAll(historiesList);
-
                 historiesTable.getSelectionModel().clearSelection();
             } finally {
                 isUpdatingSelection = false;
@@ -148,20 +148,40 @@ public class HistoriesController {
     @FXML
     private void saveHistoriesButtonClick() {
         try {
-            if (!validateHelper.validateHistories(
-                    titleField, datePickerField, historiesDescription, timeField)) {
+
+            if (!validationHelper.checkDatePicker(datePickerField, "Datum")) return;
+
+            if (historiesDescription.getText().trim().isEmpty()) {
+                alertHelper.showAlertError("Beschreibung fehlt", "Bitte geben Sie eine Beschreibung ein.");
+                historiesDescription.requestFocus();
                 return;
             }
 
             if (histories == null) {
                 histories = new Histories();
+
+                if (client == null) {
+                    alertHelper.showAlertError("Fehler", "Kein Client zugewiesen.");
+                    return;
+                }
                 histories.setClient(client);
             }
 
             histories.setTitle(titleField.getText().trim());
-            histories.setTime(LocalTime.parse(timeField.getText().trim()));
             histories.setDate(datePickerField.getValue());
             histories.setDescription(historiesDescription.getText().trim());
+
+            try {
+                histories.setTime(LocalTime.parse(timeField.getText().trim()));
+            } catch (Exception e) {
+                alertHelper.showAlertError("Ungültige Uhrzeit", "Format HH:mm, z.B. 09:45");
+                timeField.requestFocus();
+                return;
+            }
+
+            if (!validationHelper.validateHistories(histories)) {
+                return;
+            }
 
             histories = historiesService.saveHistories(histories);
 
@@ -176,7 +196,8 @@ public class HistoriesController {
             updateSaveButtonLabel();
 
         } catch (Exception e) {
-            log.error("Fehler beim Speichern des Histories", e);
+            log.error("Fehler beim Speichern der Historie", e);
+            alertHelper.showAlertError("Speicherfehler", "Ein unerwarteter Fehler ist aufgetreten.");
         }
     }
 

@@ -2,7 +2,7 @@ package com.example.project.controller;
 
 import com.example.project.help.AlertHelper;
 import com.example.project.help.NaviHelper;
-import com.example.project.help.ValidateHelper;
+import com.example.project.help.ValidationHelper;
 import com.example.project.help.ViewUrls;
 import com.example.project.model.Appointment;
 import com.example.project.model.Client;
@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class AppointmentController {
     private final NaviHelper naviButtonHelper;
     private final AppointmentService appointmentService;
     private final AlertHelper alertHelper;
-    private final ValidateHelper validateHelper;
+    private final ValidationHelper validationHelper;
 
     Client client;
     Appointment appointment;
@@ -72,6 +73,7 @@ public class AppointmentController {
     @FXML
     private TableColumn<Appointment, String> streetColumn;
 
+    @FXML
     public void initialize() {
         updateSaveButtonLabel();
 
@@ -95,7 +97,7 @@ public class AppointmentController {
     }
 
     @FXML
-    public void handleHomeButtonClick() throws Exception {
+    public void handleHomeButtonClick() throws IOException {
         Stage stage = (Stage) homeButton.getScene().getWindow();
         String url = ViewUrls.HOME_URL;
         naviButtonHelper.navigateTo(stage, url);
@@ -138,7 +140,6 @@ public class AppointmentController {
             try {
                 List<Appointment> appointmentList = appointmentService.getAppointmentsByClient(client);
                 appointmentTable.getItems().setAll(appointmentList);
-
                 appointmentTable.getSelectionModel().clearSelection();
             } finally {
                 isUpdatingSelection = false;
@@ -167,25 +168,45 @@ public class AppointmentController {
     @FXML
     private void saveAppointmentButtonClick() {
         try {
-            if (!validateHelper.validateAppointment(
-                    postCodeField, datePickerField,
-                    institutionField, cityField, streetField,
-                    timeField, statusChoiceBox)) {
-                return;
-            }
+
+            if (!validationHelper.checkDatePicker(datePickerField, "Datum")) return;
+            if (!validationHelper.checkChoiceBox(statusChoiceBox, "Status")) return;
 
             if (appointment == null) {
                 appointment = new Appointment();
+
+                if (client == null) {
+                    alertHelper.showAlertError("Fehler", "Kein Client zugewiesen.");
+                    return;
+                }
                 appointment.setClient(client);
             }
 
             appointment.setInstitution(institutionField.getText().trim());
             appointment.setCity(cityField.getText().trim());
             appointment.setStreet(streetField.getText().trim());
-            appointment.setPostalCode(Integer.parseInt(postCodeField.getText().trim()));
-            appointment.setTime(LocalTime.parse(timeField.getText().trim()));
             appointment.setDate(datePickerField.getValue());
             appointment.setStatus(statusChoiceBox.getValue());
+
+            try {
+                appointment.setPostalCode(Integer.parseInt(postCodeField.getText().trim()));
+            } catch (NumberFormatException e) {
+                alertHelper.showAlertError("Ungültige Postleitzahl", "Bitte geben Sie eine gültige Zahl ein.");
+                postCodeField.requestFocus();
+                return;
+            }
+
+            try {
+                appointment.setTime(LocalTime.parse(timeField.getText().trim()));
+            } catch (Exception e) {
+                alertHelper.showAlertError("Ungültige Uhrzeit", "Format HH:mm, z.B. 09:45");
+                timeField.requestFocus();
+                return;
+            }
+
+            if (!validationHelper.validateAppointment(appointment)) {
+                return;
+            }
 
             appointment = appointmentService.saveAppointment(appointment);
 
@@ -200,7 +221,8 @@ public class AppointmentController {
             updateSaveButtonLabel();
 
         } catch (Exception e) {
-            log.error("Fehler beim Speichern des Appointments", e);
+            log.error("Fehler beim Speichern des Termins", e);
+            alertHelper.showAlertError("Speicherfehler", "Ein unerwarteter Fehler ist aufgetreten.");
         }
     }
 
