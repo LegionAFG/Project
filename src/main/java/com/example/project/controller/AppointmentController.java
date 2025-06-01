@@ -266,9 +266,9 @@ public class AppointmentController {
 
     private void updateSaveButtonLabel() {
         if (appointment != null && appointment.getId() != null) {
-            saveButton.setText("Update");
+            saveButton.setText("BEARBEITEN");
         } else {
-            saveButton.setText("Save");
+            saveButton.setText("SPEICHERN");
         }
     }
 

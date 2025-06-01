@@ -53,6 +53,7 @@ public class NaviHelper {
 
         stage.setTitle("ClientPilot");
         stage.setScene(new Scene(root, 800, 600));
+        stage.setResizable(false);
         stage.show();
     }
 

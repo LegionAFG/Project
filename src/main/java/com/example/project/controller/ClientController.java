@@ -241,9 +241,9 @@ public class ClientController {
 
     private void updateSaveButtonLabel() {
         if (client != null && client.getId() != null) {
-            saveButton.setText("Update");
+            saveButton.setText("BEARBEITEN");
         } else {
-            saveButton.setText("Save");
+            saveButton.setText("SPEICHERN");
         }
     }
 }

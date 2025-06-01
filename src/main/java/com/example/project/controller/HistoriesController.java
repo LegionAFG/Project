@@ -224,9 +224,9 @@ public class HistoriesController {
 
     private void updateSaveButtonLabel() {
         if (histories != null && histories.getId() != null) {
-            saveButton.setText("Update");
+            saveButton.setText("BEARBEITEN");
         } else {
-            saveButton.setText("Save");
+            saveButton.setText("SPEICHERN");
         }
     }
 

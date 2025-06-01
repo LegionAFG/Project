@@ -16,8 +16,8 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controller.HistoriesController">
     <left>
         <AnchorPane prefHeight="530.0" prefWidth="168.0" style="-fx-background-color: #3b5998;" BorderPane.alignment="CENTER">
-            <VBox layoutX="9.0" layoutY="14.0" prefHeight="579.0" prefWidth="150.0">
-                <Button mnemonicParsing="false" onAction="#backToClientButton" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="BACK" textFill="#f7f7f7">
+            <VBox layoutX="9.0" layoutY="30.0" prefHeight="424.0" prefWidth="150.0">
+                <Button mnemonicParsing="false" onAction="#backToClientButton" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="KLIENT" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -25,7 +25,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHomeButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="HOME" textFill="#f7f7f7">
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHomeButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="STARTSEITE" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -33,7 +33,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <TextField fx:id="historieIdField" prefHeight="30.0" prefWidth="151.0" promptText="Client ID...">
+                <TextField fx:id="historieIdField" prefHeight="30.0" prefWidth="151.0" promptText="ID">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -49,7 +49,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </TextField>
-                <TextField fx:id="timeField" prefHeight="30.0" prefWidth="151.0" promptText="Time...">
+                <TextField fx:id="timeField" prefHeight="30.0" prefWidth="151.0" promptText="Uhrzeit">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -57,12 +57,12 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </TextField>
-                <DatePicker fx:id="datePickerField" prefHeight="30.0" prefWidth="151.0" style="-fx-font-size: 17;">
+                <DatePicker fx:id="datePickerField" prefHeight="30.0" prefWidth="151.0" promptText="Datum" style="-fx-font-size: 17;">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </DatePicker>
-                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #d3a625;" text="SAVE" textFill="#f7f7f7">
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #d3a625;" text="SPEICHERN" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -70,7 +70,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#deleteHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #740001;" text="DELETE" textFill="#f7f7f7">
+                <Button mnemonicParsing="false" onAction="#deleteHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #740001;" text="LÖSCHEN" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -83,23 +83,23 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dfe3ee;" BorderPane.alignment="CENTER">
-            <TableView fx:id="historiesTable" layoutX="5.0" layoutY="29.0" prefHeight="213.0" prefWidth="622.0">
+            <TableView fx:id="historiesTable" layoutY="39.0" prefHeight="213.0" prefWidth="622.0">
                 <columns>
-                    <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date">
+                    <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Datum">
                     </TableColumn>
-                    <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time">
+                    <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Uhrzeit">
                     </TableColumn>
                     <TableColumn fx:id="titleColumn" prefWidth="466.4" text="Titel">
                     </TableColumn>
                 </columns>
             </TableView>
-            <Text fill="#3b5998" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Histories">
+            <Text fill="#3b5998" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dokumentationen">
                 <font>
                     <Font name="System Bold" size="18.0" />
                 </font>
             </Text>
-            <TextArea fx:id="historiesDescription" layoutX="5.0" layoutY="278.0" prefHeight="318.0" prefWidth="622.0" promptText="content..." />
-            <Text fill="#3b5998" layoutX="5.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Content">
+            <TextArea fx:id="historiesDescription" layoutX="5.0" layoutY="278.0" prefHeight="318.0" prefWidth="622.0" promptText="Kontext" />
+            <Text fill="#3b5998" layoutX="5.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inhalt">
                 <font>
                     <Font name="System Bold" size="18.0" />
                 </font>

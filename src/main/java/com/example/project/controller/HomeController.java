@@ -164,7 +164,7 @@ public class HomeController {
                                                 (client.getId() != null && client.getId().toString().contains(search));
                                     }));
 
-            searchField.setPromptText("Klienten suchen...");
+            searchField.setPromptText("Suche");
         }
 
         clientTable.setItems(filteredClients);

@@ -16,28 +16,36 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.controller.ClientController">
     <left>
         <AnchorPane prefHeight="530.0" prefWidth="168.0" style="-fx-background-color: #3b5998;" BorderPane.alignment="CENTER">
-            <VBox alignment="CENTER" layoutX="9.0" layoutY="13.0" prefHeight="546.0" prefWidth="150.0">
-                <TextField fx:id="clientIdField" prefHeight="144.0" prefWidth="150.0" promptText="ClientID...">
+            <VBox alignment="CENTER" layoutX="9.0" layoutY="27.0" prefHeight="546.0" prefWidth="150.0">
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHomeButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="STARTSEITE" textFill="#f7f7f7">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+                </Button>
+                <TextField fx:id="clientIdField" prefHeight="144.0" prefWidth="150.0" promptText="ID">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
                     </font></TextField>
-                <TextField fx:id="lastnameField" prefHeight="144.0" prefWidth="150.0" promptText="Lastname...">
+                <TextField fx:id="lastnameField" prefHeight="144.0" prefWidth="150.0" promptText="Nachname">
                     <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="firstNameField" prefHeight="144.0" prefWidth="150.0" promptText="Firstname...">
+                <TextField fx:id="firstNameField" prefHeight="144.0" prefWidth="150.0" promptText="Vorname">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </TextField>
-                <DatePicker fx:id="birthDatePicker" prefHeight="144.0" prefWidth="150.0" style="-fx-font-size: 15;">
+                <DatePicker fx:id="birthDatePicker" prefHeight="144.0" prefWidth="150.0" promptText="Geburtsdatum" style="-fx-font-size: 15;">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
@@ -57,7 +65,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </ChoiceBox>
-                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveClientButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8ec582;" text="SAVE" textFill="#f7f7f7">
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveClientButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8ec582;" text="SPEICHERN" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -65,7 +73,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#deleteClientButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b0000;" text="DELETE" textFill="#f7f7f7">
+                <Button mnemonicParsing="false" onAction="#deleteClientButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b0000;" text="LÖSCHEN" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -73,7 +81,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="appointmentButton" mnemonicParsing="false" onAction="#handleAppointmentButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="APPOINTMENT" textFill="#f7f7f7">
+                <Button fx:id="appointmentButton" mnemonicParsing="false" onAction="#handleAppointmentButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="TERMINE" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -81,18 +89,13 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="historiesButton" mnemonicParsing="false" onAction="#handleHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="HISTORIES" textFill="#f7f7f7">
+                <Button fx:id="historiesButton" mnemonicParsing="false" onAction="#handleHistoriesButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="DOKU" textFill="#f7f7f7">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
-                </Button>
-                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHomeButtonClick" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: #8b9dc3;" text="HOME" textFill="#f7f7f7">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
                 </Button>
             </VBox>
         </AnchorPane>
@@ -102,40 +105,40 @@
 
             <TableView fx:id="historiesTable" layoutX="10.0" layoutY="26.0" prefHeight="200" prefWidth="620">
                 <columns>
-                    <TableColumn fx:id="historiesDateColumn" prefWidth="100" text="Date">
+                    <TableColumn fx:id="historiesDateColumn" prefWidth="100" text="Datum">
                     </TableColumn>
-                    <TableColumn fx:id="historiesTimeColumn" prefWidth="100" text="Time">
+                    <TableColumn fx:id="historiesTimeColumn" prefWidth="100" text="Uhrzeit">
                     </TableColumn>
-                    <TableColumn fx:id="titleColumn" prefWidth="420" text="Titel">
+                    <TableColumn fx:id="titleColumn" prefWidth="416.0" text="Titel">
                     </TableColumn>
                 </columns>
             </TableView>
 
             <TableView fx:id="appointmentTable" layoutX="10.0" layoutY="257.0" prefHeight="337.0" prefWidth="620">
                 <columns>
-                    <TableColumn fx:id="dateColumn" prefWidth="100" text="Date">
+                    <TableColumn fx:id="dateColumn" prefWidth="100" text="Datum">
                     </TableColumn>
-                    <TableColumn fx:id="timeColumn" prefWidth="100" text="Time">
+                    <TableColumn fx:id="timeColumn" prefWidth="100" text="Uhrzeit">
                     </TableColumn>
                     <TableColumn fx:id="institutionColumn" prefWidth="180" text="Institution">
                     </TableColumn>
-                    <TableColumn fx:id="postCodeColumn" prefWidth="100" text="Post Code">
+                    <TableColumn fx:id="postCodeColumn" prefWidth="100" text="PLZ">
                     </TableColumn>
-                    <TableColumn fx:id="cityColumn" prefWidth="120" text="City">
+                    <TableColumn fx:id="cityColumn" prefWidth="134.0" text="Stadt">
                     </TableColumn>
-                    <TableColumn fx:id="streetColumn" prefWidth="120" text="Street">
+                    <TableColumn fx:id="streetColumn" prefWidth="106.0" text="Street">
                     </TableColumn>
                     <TableColumn fx:id="statusColumn" prefWidth="100" text="Status">
                     </TableColumn>
                 </columns>
             </TableView>
 
-            <Text fill="#3b5998" layoutX="14.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open appointments">
+            <Text fill="#3b5998" layoutX="14.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offene Termine">
                 <font>
                     <Font name="System Bold" size="18.0" />
                 </font>
             </Text>
-            <Text fill="#3b5998" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Histories">
+            <Text fill="#3b5998" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dokumentation">
                 <font>
                     <Font name="System Bold" size="18.0" />
                 </font>
