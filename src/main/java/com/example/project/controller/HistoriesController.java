@@ -28,8 +28,11 @@ public class HistoriesController {
     private final HistoriesService historiesService;
     private final AlertHelper alertHelper;
     private final ValidateHelper validateHelper;
+
     Histories histories;
     Client client;
+
+    private boolean isUpdatingSelection = false;
 
     @FXML
     private Button homeButton;
@@ -55,8 +58,6 @@ public class HistoriesController {
     @FXML
     private TableColumn<Histories, String> dateColumn;
 
-
-
     @FXML
     private void initialize() {
         historieIdField.setEditable(false);
@@ -64,75 +65,91 @@ public class HistoriesController {
 
         historiesTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        setHistories(newValue);
-                    } else {
-                        clearForm();
+                    if (!isUpdatingSelection) {
+                        if (newValue != null) {
+                            setHistoriesData(newValue);
+                        } else {
+                            clearForm();
+                        }
                     }
                 }
         );
 
+        updateSaveButtonLabel();
     }
 
+    @FXML
     public void handleHomeButtonClick() throws Exception {
-
         Stage stage = (Stage) homeButton.getScene().getWindow();
-
         String url = ViewUrls.HOME_URL;
-
         naviButtonHelper.navigateTo(stage, url);
     }
 
-    public void setClient(Client client){
+    public void setClient(Client client) {
         this.client = client;
         loadHistories();
+        clearForm();
+        updateSaveButtonLabel();
     }
 
-    public void setHistories(Histories histories){
+    public void setHistories(Histories histories) {
+        this.histories = histories;
+        this.client = histories.getClient();
+
+        loadHistories();
+        setHistoriesData(histories);
+        updateSaveButtonLabel();
+    }
+
+    private void setHistoriesData(Histories histories) {
         this.histories = histories;
 
-        historieIdField.setText(histories.getClient().getId().toString());
+        historieIdField.setText(histories.getId().toString());
         timeField.setText(String.valueOf(histories.getTime()));
         titleField.setText(histories.getTitle());
+        historiesDescription.setText(histories.getDescription());
+        datePickerField.setValue(histories.getDate());
 
         updateSaveButtonLabel();
     }
 
     private void loadHistories() {
         if (client != null) {
-            List<Histories> historiesList = historiesService.getHistoriesByClient(client);
-            historiesTable.getItems().setAll(historiesList);
+            isUpdatingSelection = true;
+            try {
+                List<Histories> historiesList = historiesService.getHistoriesByClient(client);
+                historiesTable.getItems().setAll(historiesList);
+
+                historiesTable.getSelectionModel().clearSelection();
+            } finally {
+                isUpdatingSelection = false;
+            }
         }
     }
 
     @FXML
     public void deleteHistoriesButtonClick() {
-
         Histories selectHistories = historiesTable.getSelectionModel().getSelectedItem();
-        boolean confirmed = alertHelper.showAlertDelete();
 
         if (selectHistories == null) {
             alertHelper.showAlertInformation("Keine Auswahl",
-                    "Bitte wählen Sie zuerst einen Termin aus der Tabelle aus, den Sie löschen möchten.");
+                    "Bitte wählen Sie zuerst einen Eintrag aus der Tabelle aus, den Sie löschen möchten.");
             return;
         }
 
+        boolean confirmed = alertHelper.showAlertDelete();
         if (confirmed) {
-
             historiesService.deleteHistories(selectHistories.getId());
-
             loadHistories();
-
+            clearForm();
         }
     }
 
     @FXML
     private void saveHistoriesButtonClick() {
-
         try {
-
             if (!validateHelper.validateHistories(
-                   titleField,datePickerField,historiesDescription,timeField)) {
+                    titleField, datePickerField, historiesDescription, timeField)) {
                 return;
             }
 
@@ -148,19 +165,24 @@ public class HistoriesController {
 
             histories = historiesService.saveHistories(histories);
 
-            historieIdField.setText(String.valueOf(client.getId()));
+            if (histories != null && histories.getId() != null) {
+                historieIdField.setText(String.valueOf(histories.getId()));
+            } else {
+                historieIdField.clear();
+            }
+
             loadHistories();
             clearForm();
             updateSaveButtonLabel();
 
         } catch (Exception e) {
-
             log.error("Fehler beim Speichern des Histories", e);
         }
     }
 
     private void clearForm() {
         histories = null;
+        historieIdField.clear();
         titleField.clear();
         historiesDescription.clear();
         timeField.clear();
@@ -175,8 +197,4 @@ public class HistoriesController {
             saveButton.setText("Save");
         }
     }
-
-
-    //TODO Back Button implementieren
-
 }

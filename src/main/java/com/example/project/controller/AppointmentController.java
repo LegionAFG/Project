@@ -32,6 +32,8 @@ public class AppointmentController {
     Client client;
     Appointment appointment;
 
+    private boolean isUpdatingSelection = false;
+
     @FXML
     private Button homeButton;
     @FXML
@@ -70,47 +72,52 @@ public class AppointmentController {
     @FXML
     private TableColumn<Appointment, String> streetColumn;
 
-
     public void initialize() {
-
         updateSaveButtonLabel();
-
 
         appointmentIdField.setEditable(false);
         datePickerField.setEditable(false);
 
         statusChoiceBox.getItems().addAll("Offen", "Erledigt");
-
         statusChoiceBox.setValue("Bitte auswählen");
 
         appointmentTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        setAppointment(newValue);
-                    } else {
-                        clearForm();
+                    if (!isUpdatingSelection) {
+                        if (newValue != null) {
+                            setAppointmentData(newValue);
+                        } else {
+                            clearForm();
+                        }
                     }
                 }
         );
-
     }
 
     @FXML
     public void handleHomeButtonClick() throws Exception {
-
         Stage stage = (Stage) homeButton.getScene().getWindow();
-
         String url = ViewUrls.HOME_URL;
-
         naviButtonHelper.navigateTo(stage, url);
     }
 
     public void setClient(Client client) {
         this.client = client;
         loadAppointments();
+        clearForm();
+        updateSaveButtonLabel();
     }
 
     public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+        this.client = appointment.getClient();
+
+        loadAppointments();
+        setAppointmentData(appointment);
+        updateSaveButtonLabel();
+    }
+
+    private void setAppointmentData(Appointment appointment) {
         this.appointment = appointment;
 
         appointmentIdField.setText(appointment.getId().toString());
@@ -127,16 +134,21 @@ public class AppointmentController {
 
     private void loadAppointments() {
         if (client != null) {
-            List<Appointment> appointmentList = appointmentService.getAppointmentsByClient(client);
-            appointmentTable.getItems().setAll(appointmentList);
+            isUpdatingSelection = true;
+            try {
+                List<Appointment> appointmentList = appointmentService.getAppointmentsByClient(client);
+                appointmentTable.getItems().setAll(appointmentList);
+
+                appointmentTable.getSelectionModel().clearSelection();
+            } finally {
+                isUpdatingSelection = false;
+            }
         }
     }
 
     @FXML
     public void deleteAppointmentButtonClick() {
-
         Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
-        boolean confirmed = alertHelper.showAlertDelete();
 
         if (selectedAppointment == null) {
             alertHelper.showAlertInformation("Keine Auswahl",
@@ -144,20 +156,17 @@ public class AppointmentController {
             return;
         }
 
+        boolean confirmed = alertHelper.showAlertDelete();
         if (confirmed) {
-
             appointmentService.deleteAppointment(selectedAppointment.getId());
-
             loadAppointments();
-
+            clearForm();
         }
     }
 
     @FXML
     private void saveAppointmentButtonClick() {
-
         try {
-
             if (!validateHelper.validateAppointment(
                     postCodeField, datePickerField,
                     institutionField, cityField, streetField,
@@ -191,7 +200,6 @@ public class AppointmentController {
             updateSaveButtonLabel();
 
         } catch (Exception e) {
-
             log.error("Fehler beim Speichern des Appointments", e);
         }
     }
@@ -216,8 +224,4 @@ public class AppointmentController {
             saveButton.setText("Save");
         }
     }
-
-
-    //TODO Back Button implementieren
-
 }
