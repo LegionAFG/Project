@@ -116,24 +116,24 @@
 
             <TableView fx:id="appointmentTable" layoutX="10.0" layoutY="257.0" prefHeight="337.0" prefWidth="620">
                 <columns>
-                    <TableColumn fx:id="dateColumn" prefWidth="100" text="Datum">
+                    <TableColumn fx:id="dateColumn" prefWidth="89.0" text="Datum">
                     </TableColumn>
-                    <TableColumn fx:id="timeColumn" prefWidth="100" text="Uhrzeit">
+                    <TableColumn fx:id="timeColumn" prefWidth="58.0" text="Uhrzeit">
                     </TableColumn>
-                    <TableColumn fx:id="institutionColumn" prefWidth="180" text="Institution">
+                    <TableColumn fx:id="institutionColumn" prefWidth="108.0" text="Institution">
                     </TableColumn>
-                    <TableColumn fx:id="postCodeColumn" prefWidth="100" text="PLZ">
+                    <TableColumn fx:id="postCodeColumn" prefWidth="56.0" text="PLZ">
                     </TableColumn>
-                    <TableColumn fx:id="cityColumn" prefWidth="134.0" text="Stadt">
+                    <TableColumn fx:id="cityColumn" prefWidth="123.0" text="Stadt">
                     </TableColumn>
-                    <TableColumn fx:id="streetColumn" prefWidth="106.0" text="Street">
+                    <TableColumn fx:id="streetColumn" prefWidth="121.0" text="Street">
                     </TableColumn>
-                    <TableColumn fx:id="statusColumn" prefWidth="100" text="Status">
+                    <TableColumn fx:id="statusColumn" prefWidth="55.0" text="Status">
                     </TableColumn>
                 </columns>
             </TableView>
 
-            <Text fill="#3b5998" layoutX="14.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offene Termine">
+            <Text fill="#3b5998" layoutX="14.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Termine">
                 <font>
                     <Font name="System Bold" size="18.0" />
                 </font>

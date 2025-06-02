@@ -119,17 +119,17 @@
                 <columns>
                     <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Datum">
                     </TableColumn>
-                    <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Uhrzeit">
+                    <TableColumn fx:id="timeColumn" prefWidth="45.0" text="Uhrzeit">
                     </TableColumn>
-                    <TableColumn fx:id="institutionColumn" prefWidth="82.0" text="Institution">
+                    <TableColumn fx:id="institutionColumn" prefWidth="153.0" text="Institution">
                     </TableColumn>
-                    <TableColumn fx:id="postCodeColumn" prefWidth="86.0" text="PLZ">
+                    <TableColumn fx:id="postCodeColumn" prefWidth="45.0" text="PLZ">
                     </TableColumn>
                     <TableColumn fx:id="cityColumn" prefWidth="84.0" text="Stadt">
                     </TableColumn>
-                    <TableColumn fx:id="streetColumn" prefWidth="83.0" text="Straße">
+                    <TableColumn fx:id="streetColumn" prefWidth="156.0" text="Straße">
                     </TableColumn>
-                    <TableColumn fx:id="statusColumn" prefWidth="131.0" text="Status">
+                    <TableColumn fx:id="statusColumn" prefWidth="58.0" text="Status">
                     </TableColumn>
                 </columns>
             </TableView>

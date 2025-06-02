@@ -30,7 +30,7 @@
                 </effect>
                 <Image url="@Image/project-manager.png"/>
             </ImageView>
-             <TextField fx:id="searchField" alignment="CENTER" layoutX="15.0" layoutY="374.0" onAction="#refreshClientSearch" prefHeight="30.0" prefWidth="140.0" promptText="SUCHE...">
+             <TextField fx:id="searchField" alignment="CENTER" layoutX="15.0" layoutY="374.0" prefHeight="30.0" prefWidth="140.0" promptText="SUCHE...">
                  <font>
                      <Font name="System Bold" size="18.0" />
                  </font>

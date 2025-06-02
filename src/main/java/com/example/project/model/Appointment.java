@@ -33,8 +33,8 @@ public class Appointment {
     private LocalTime time;
 
     @NotBlank(message = "Institution darf nicht leer sein")
-    @Pattern(regexp = "^[\\p{L} ]+$",
-            message = "Institution darf nur Buchstaben und Leerzeichen enthalten")
+    @Pattern(regexp = "^[\\p{L}\\s\\-–—/]+$",
+            message = "Institution darf nur Buchstaben, Leerzeichen und die Zeichen - – — / enthalten")
     private String institution;
 
     @NotBlank(message = "Stadt darf nicht leer sein")

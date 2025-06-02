@@ -36,7 +36,6 @@ public class HomeController {
     private final NaviHelper naviHelper;
     private final NaviRowHelper naviRowHelper;
 
-    private ObservableList<Client> allClients;
     private FilteredList<Client> filteredClients;
 
     @FXML
@@ -142,7 +141,7 @@ public class HomeController {
     private void setupClientSearch() {
 
         List<Client> clients = clientService.getAllClients();
-        allClients = FXCollections.observableArrayList(clients);
+        ObservableList<Client> allClients = FXCollections.observableArrayList(clients);
         filteredClients = new FilteredList<>(allClients);
 
         if (searchField != null) {
@@ -166,13 +165,6 @@ public class HomeController {
 
             searchField.setPromptText("Suche");
         }
-
         clientTable.setItems(filteredClients);
-    }
-
-    public void refreshClientSearch() {
-        List<Client> clients = clientService.getAllClients();
-        allClients.clear();
-        allClients.addAll(clients);
     }
 }

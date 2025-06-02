@@ -28,8 +28,8 @@ public class Histories {
     private Long id;
 
     @NotBlank(message = "Title darf nicht leer sein")
-    @Pattern(regexp = "^[\\p{L} ]+$",
-            message = "Title darf nur Buchstaben und Leerzeichen enthalten")
+    @Pattern(regexp = "^[\\p{L}\\p{N}\\s\\-/@]+$",
+            message = "Title darf nur Buchstaben, Zahlen, Leerzeichen und die Zeichen - / @ enthalten")
     private String title;
 
     @NotBlank(message = "Description darf nicht leer sein")
