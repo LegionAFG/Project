@@ -150,7 +150,7 @@ public class ClientController {
         if (client != null) {
             naviButtonHelper.navigateToAppointmentButton(stage, client);
         } else {
-            alertHelper.showAlertInformation(null, "Kein Client ausgewählt");
+            alertHelper.showAlertInfo(null, "Kein Client ausgewählt");
         }
     }
 
@@ -161,7 +161,7 @@ public class ClientController {
         if (client != null) {
             naviButtonHelper.navigateToHistoriesButton(stage, client);
         } else {
-            alertHelper.showAlertInformation(null, "Kein Client ausgewählt");
+            alertHelper.showAlertInfo(null, "Kein Client ausgewählt");
         }
     }
 
@@ -169,7 +169,7 @@ public class ClientController {
     public void deleteClientButtonClick() throws IOException {
 
         if (client == null) {
-            alertHelper.showAlertInformation("Fehler", "Kein Client zum Löschen ausgewählt.");
+            alertHelper.showAlertInfo("Fehler", "Kein Client zum Löschen ausgewählt.");
             return;
         }
 
@@ -207,6 +207,9 @@ public class ClientController {
             client = clientService.saveClient(client);
             clientIdField.setText(String.valueOf(client.getId()));
             updateSaveButtonLabel();
+
+            alertHelper.showAlertInfo("Erfolgreich gespeichert",
+                    "Client wurde erfolgreich gespeichert.");
 
         } catch (Exception e) {
             log.error("Fehler beim Speichern des Clients", e);

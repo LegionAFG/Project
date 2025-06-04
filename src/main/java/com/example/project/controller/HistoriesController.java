@@ -143,7 +143,7 @@ public class HistoriesController {
         Histories selectHistories = historiesTable.getSelectionModel().getSelectedItem();
 
         if (selectHistories == null) {
-            alertHelper.showAlertInformation("Keine Auswahl",
+            alertHelper.showAlertInfo("Keine Auswahl",
                     "Bitte wählen Sie zuerst einen Eintrag aus der Tabelle aus, den Sie löschen möchten.");
             return;
         }

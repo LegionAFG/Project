@@ -9,7 +9,7 @@ import java.util.Optional;
 @Component
 public class AlertHelper {
 
-    public void showAlertInformation(String header, String content) {
+    public void showAlertInfo(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText(header);

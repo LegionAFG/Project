@@ -177,7 +177,7 @@ public class AppointmentController {
         Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
 
         if (selectedAppointment == null) {
-            alertHelper.showAlertInformation("Keine Auswahl",
+            alertHelper.showAlertInfo("Keine Auswahl",
                     "Bitte wählen Sie zuerst einen Termin aus der Tabelle aus, den Sie löschen möchten.");
             return;
         }
