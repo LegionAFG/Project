@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Component
 @RequiredArgsConstructor
@@ -66,9 +68,9 @@ public class ClientController {
     @FXML
     private TableColumn<Appointment, String> statusColumn;
     @FXML
-    private TableColumn<Appointment, String> dateColumn;
+    private TableColumn<Appointment, LocalDate> dateColumn;
     @FXML
-    private TableColumn<Appointment, String> timeColumn;
+    private TableColumn<Appointment, LocalTime> timeColumn;
     @FXML
     private TableColumn<Appointment, Integer> postCodeColumn;
     @FXML
@@ -81,24 +83,24 @@ public class ClientController {
     @FXML
     private TableColumn<Histories, String> titleColumn;
     @FXML
-    private TableColumn<Histories, String> historiesTimeColumn;
+    private TableColumn<Histories, LocalTime> historiesTimeColumn;
     @FXML
-    private TableColumn<Histories, String> historiesDateColumn;
+    private TableColumn<Histories, LocalDate> historiesDateColumn;
 
     @FXML
     public void initialize() {
 
         institutionColumn.setCellValueFactory(
-                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getInstitution()));
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getInstitution()));
 
         statusColumn.setCellValueFactory(
-                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getStatus()));
+                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStatus()));
 
         dateColumn.setCellValueFactory(
-                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate().toString()));
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate()));
 
         timeColumn.setCellValueFactory(
-                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getTime().toString()));
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getTime()));
 
         postCodeColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getPostalCode()));
@@ -113,10 +115,10 @@ public class ClientController {
                 cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTitle()));
 
         historiesTimeColumn.setCellValueFactory(
-                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTime().toString()));
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getTime()));
 
         historiesDateColumn.setCellValueFactory(
-                cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDate().toString()));
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate()));
 
 
         updateSaveButtonLabel();
@@ -184,10 +186,10 @@ public class ClientController {
     public void saveClientButtonClick() {
         try {
 
-            if (!validationHelper.checkDatePicker(birthDatePicker, "Geburtsdatum")) return;
-            if (!validationHelper.checkChoiceBox(genderChoiceBox, "Geschlecht")) return;
-            if (!validationHelper.checkChoiceBox(nationalityChoiceBox, "Nationalität")) return;
-            if (!validationHelper.checkChoiceBox(relationshipChoiceBox, "Beziehungsstatus")) return;
+            if (validationHelper.checkDatePicker(birthDatePicker, "Geburtsdatum")) return;
+            if (validationHelper.checkChoiceBox(genderChoiceBox, "Geschlecht")) return;
+            if (validationHelper.checkChoiceBox(nationalityChoiceBox, "Nationalität")) return;
+            if (validationHelper.checkChoiceBox(relationshipChoiceBox, "Beziehungsstatus")) return;
 
             if (client == null) {
                 client = new Client();

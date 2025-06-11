@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Component
@@ -194,8 +195,8 @@ public class AppointmentController {
     private void saveAppointmentButtonClick() {
         try {
 
-            if (!validationHelper.checkDatePicker(datePickerField, "Datum")) return;
-            if (!validationHelper.checkChoiceBox(statusChoiceBox, "Status")) return;
+            if (validationHelper.checkDatePicker(datePickerField, "Datum")) return;
+            if (validationHelper.checkChoiceBox(statusChoiceBox, "Status")) return;
 
             if (appointment == null) {
                 appointment = new Appointment();
@@ -223,7 +224,7 @@ public class AppointmentController {
 
             try {
                 appointment.setTime(LocalTime.parse(timeField.getText().trim()));
-            } catch (Exception e) {
+            } catch (DateTimeParseException e) {
                 alertHelper.showAlertError("Ungültige Uhrzeit", "Format HH:mm, z.B. 09:45");
                 timeField.requestFocus();
                 return;

@@ -56,17 +56,17 @@ public class ValidationHelper {
         if ("Bitte auswählen".equals(choiceBox.getValue())) {
             alertHelper.showAlertError(fieldName + " fehlt", "Bitte wählen Sie eine Option aus.");
             choiceBox.requestFocus();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean checkDatePicker(DatePicker datePicker, String fieldName) {
         if (datePicker.getValue() == null) {
             alertHelper.showAlertError(fieldName + " fehlt", "Bitte wählen Sie ein Datum aus.");
             datePicker.requestFocus();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
